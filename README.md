@@ -47,7 +47,7 @@ var div = d3.selectAll("div");
 </script>
 ```
 
-[Try d3-selection in your browser.](https://tonicdev.com/npm/d3-selection)
+[在浏览器中测试 d3-selection.](https://tonicdev.com/npm/d3-selection)
 
 ## API Reference
 
@@ -61,11 +61,11 @@ var div = d3.selectAll("div");
 
 ### Selecting Elements
 
-Selection methods accept [W3C selector strings](http://www.w3.org/TR/selectors-api/) such as `.fancy` to select elements with the class *fancy*, or `div` to select DIV elements. Selection methods come in two forms: select and selectAll: the former selects only the first matching element, while the latter selects all matching elements in document order. The top-level selection methods, [d3.select](#select) and [d3.selectAll](#selectAll), query the entire document; the subselection methods, [*selection*.select](#selection_select) and [*selection*.selectAll](#selection_selectAll), restrict selection to descendants of the selected elements.
+选择集接收 [W3C selector strings(选择字符串)](http://www.w3.org/TR/selectors-api/) 比如 `.fancy` 用来选择类名为 *fancy* 的元素， `div` 可以用来选择 *DIV* 元素。选择元素有两种模式: `select` 和 `selectAll`: `select` 只会选中第一个符合条件的元素与，而 `selectAll` 则会选中所有符合条的元素。两个顶级的选择方法: [d3.select](#select) 和 [d3.selectAll](#selectAll) 的查找范围为整个文档。两个子选择方法: [*selection*.select](#selection_select) 和 [*selection*.selectAll](#selection_selectAll) 则会将查找范围限制为*selection* 的后代元素。
 
 <a name="selection" href="#selection">#</a> d3.<b>selection</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/index.js#L38 "Source")
 
-[Selects](#select) the root element, `document.documentElement`. This function can also be used to test for selections (`instanceof d3.selection`) or to extend the selection prototype. For example, to add a method to check checkboxes:
+选择器根元素: `document.documentElement`. 整个方法可以用来测试是否为选择集实例 (`instanceof d3.selection`) 也可以用来扩展选择集原型链，比如为 `checkbox` 添加一个 `check` 方法:
 
 ```js
 d3.selection.prototype.checked = function(value) {
@@ -75,7 +75,7 @@ d3.selection.prototype.checked = function(value) {
 };
 ```
 
-And then to use:
+然后使用:
 
 ```js
 d3.selectAll("input[type=checkbox]").checked(true);
@@ -83,13 +83,13 @@ d3.selectAll("input[type=checkbox]").checked(true);
 
 <a name="select" href="#select">#</a> d3.<b>select</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/select.js#L3 "Source")
 
-Selects the first element that matches the specified *selector* string. If no elements match the *selector*, returns an empty selection. If multiple elements match the *selector*, only the first matching element (in document order) will be selected. For example, to select the first anchor element:
+选中符合条件的第一个元素，选择条件为 *selector* 字符串。如果没有元素被选中则返回空选择集。如果有多个元素都符合条件则返回包含第一个 (文档顺序) 匹配的元素的选择集。例如选择第一个 `a` 元素:
 
 ```js
 var anchor = d3.select("a");
 ```
 
-If the *selector* is not a string, instead selects the specified node; this is useful if you already have a reference to a node, such as `this` within an event listener or a global such as `document.body`. For example, to make a clicked paragraph red:
+*selector* 除是字符串之外还可以是指定的节点，在已经对节点有引用的时候是很有用的。比如在事件监听器回调内 `this` 指向节点时就可以使用这种方法将其转换为选择集实例:
 
 ```js
 d3.selectAll("p").on("click", function() {
@@ -99,13 +99,13 @@ d3.selectAll("p").on("click", function() {
 
 <a name="selectAll" href="#selectAll">#</a> d3.<b>selectAll</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selectAll.js#L3 "Source")
 
-Selects all elements that match the specified *selector* string. The elements will be selected in document order (top-to-bottom). If no elements in the document match the *selector*, or if the *selector* is null or undefined, returns an empty selection. For example, to select all paragraphs:
+选择所有与指定的 *selector* 匹配的元素。被选中的元素顺序会按其在文档中的顺序排列(从上到下)。如果没有元素被选中，或者 *selector* 为 null 或 undefined 则返回空选择集。例如选择所有的 `p` 元素：
 
 ```js
 var paragraph = d3.selectAll("p");
 ```
 
-If the *selector* is not a string, instead selects the specified array of nodes; this is useful if you already have a reference to nodes, such as `this.childNodes` within an event listener or a global such as `document.links`. The nodes may instead be a pseudo-array such as a `NodeList` or `arguments`. For example, to color all links red:
+*selector* 除字符串之外还可以是节点数组。如果已经对节点有引用时会很有用，比如在事件回调内将 `this.childNodes` 或 `document.links` 传递给选择器。节点可以是一个伪数组，比如`NodeList` 或 `arguments`，比如将所有链接的颜色改为红色:
 
 ```js
 d3.selectAll(document.links).style("color", "red");
