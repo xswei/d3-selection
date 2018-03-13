@@ -1,8 +1,8 @@
 # d3-selection
 
-Selections allow powerful data-driven transformation of the document object model (DOM): set [attributes](#selection_attr), [styles](#selection_style), [properties](#selection_property), [HTML](#selection_html) or [text](#selection_text) content, and more. Using the [data join](#joining-data)’s [enter](#selection_enter) and [exit](#selection_enter) selections, you can also [add](#selection_append) or [remove](#selection_remove) elements to correspond to data.
+`Selections` 允许强大的数据驱动文档对象模型 (DOM): 设置 [attributes](#selection_attr), [styles](#selection_style), [properties](#selection_property), [HTML](#selection_html) 或 [text](#selection_text) 内容等等。使用 [data join](#joining-data) 的 [enter](#selection_enter) 和 [exit](#selection_enter) 选择集可以用来根据具体的数据 [add](#selection_append) 或 [remove](#selection_remove) 元素。
 
-Selection methods typically return the current selection, or a new selection, allowing the concise application of multiple operations on a given selection via method chaining. For example, to set the class and color style of all paragraph elements in the current document:
+选择集的方法通常选择当前的选择集或者新的选择集，因此允许进行链式调用。例如为所有的 `p` 元素设置类和样式:
 
 ```js
 d3.selectAll("p")
@@ -10,7 +10,7 @@ d3.selectAll("p")
     .style("color", "red");
 ```
 
-This is equivalent to:
+等价于:
 
 ```js
 var p = d3.selectAll("p");
@@ -18,7 +18,7 @@ p.attr("class", "graf");
 p.style("color", "red");
 ```
 
-By convention, selection methods that return the current selection use *four* spaces of indent, while methods that return a new selection use only *two*. This helps reveal changes of context by making them stick out of the chain:
+按照惯例，返回当前选择集的方法前设置 *4* 个空格缩进，返回新的选择集的则使用 *2* 个空格缩进。这种写法有助于在链式调用中发现选择集的变化:
 
 ```js
 d3.select("body")
@@ -32,11 +32,11 @@ d3.select("body")
     .attr("height", 460);
 ```
 
-Selections are immutable. All selection methods that affect which elements are selected (or their order) return a new selection rather than modifying the current selection. However, note that elements are necessarily mutable, as selections drive transformations of the document!
+选择集是不可变的。影响被选中的元素 (或顺序) 的方法都会返回一个新的选择集，而不是在当前选择集上进行修改然后返回。但是请注意，元素必然是可变的，因为元素不变还谈什么数据驱动文档。
 
 ## Installing
 
-If you use NPM, `npm install d3-selection`. Otherwise, download the [latest release](https://github.com/d3/d3-selection/releases/latest). You can also load directly from [d3js.org](https://d3js.org), either as a [standalone library](https://d3js.org/d3-selection.v1.min.js) or as part of [D3 4.0](https://github.com/d3/d3). AMD, CommonJS, and vanilla environments are supported. In vanilla, a `d3` global is exported:
+NPM 安装：`npm install d3-selection`. 也可以下载 [latest release](https://github.com/d3/d3-selection/releases/latest). 此外还可以从 [d3js.org](https://d3js.org), 以 [standalone library](https://d3js.org/d3-selection.v1.min.js) 或作为 [D3 4.0](https://github.com/d3/d3) 的一部分直接载入. 支持 AMD, CommonJS 以及最基本的标签引入形式，如果使用标签引入形式则会暴露 `d3` 全局变量:
 
 ```html
 <script src="https://d3js.org/d3-selection.v1.min.js"></script>
