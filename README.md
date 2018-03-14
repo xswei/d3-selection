@@ -113,13 +113,13 @@ d3.selectAll(document.links).style("color", "red");
 
 <a name="selection_select" href="#selection_select">#</a> <i>selection</i>.<b>select</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/select.js "Source")
 
-For each selected element, selects the first descendant element that matches the specified *selector* string. If no element matches the specified selector for the current element, the element at the current index will be null in the returned selection. (If the *selector* is null, every element in the returned selection will be null, resulting in an empty selection.) If the current element has associated data, this data is propagated to the corresponding selected element. If multiple elements match the selector, only the first matching element in document order is selected. For example, to select the first bold element in every paragraph:
+对于每个已经选中的元素，进一步选择它们的第一个匹配的后代元素。如果没有元素匹配的元素被选中，则返回的选择集中当前索引处的元素为 `null`. 如果 `selector` 为 `null` 则返回的选择集中的每个元素都为 `null`，也就是产生一个空选择集。如果当前的元素有关联数据，则数据将被传递给对应的被选中的元素。如果有多个元素匹配当前的选择条件则返回第一个符合条件的元素。例如选中文档中所有的 `p` 元素下的第一个 `b` 元素:
 
 ```js
 var b = d3.selectAll("p").select("b");
 ```
 
-If the *selector* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). It must return an element, or null if there is no matching element. For example, to select the previous sibling of each paragraph:
+如果 *selector* 为函数，则会在选择前执行对应的函数，并且会传递当前元素的关联数据 (*d*)，当前的索引 (*i*) 以及当前分组 (*nodes*)，在函数中 *this* 指向当前 `DOM` 元素(*nodes*[*i*]). 为函数时必须返回一个元素，或者 `null`。例如选择每个 `p` 元素的前一个同胞节点:
 
 ```js
 var previous = d3.selectAll("p").select(function() {
@@ -127,11 +127,12 @@ var previous = d3.selectAll("p").select(function() {
 });
 ```
 
-Unlike [*selection*.selectAll](#selection_selectAll), *selection*.select does not affect grouping: it preserves the existing group structure and indexes, and propagates data (if any) to selected children. Grouping plays an important role in the [data join](#joining-data). See [Nested Selections](http://bost.ocks.org/mike/nest/) and [How Selections Work](http://bost.ocks.org/mike/selection/) for more on this topic.
+与 [*selection*.selectAll](#selection_selectAll) 不同, *selection*.select 不会影响分组: 它会保存现有的分组结构以及索引并且将关联数据(如果有的话)传递给选中的子节点。分组在
+[data join](#joining-data) 中扮演着很重要的角色。参考 [Nested Selections](http://bost.ocks.org/mike/nest/) 和 [How Selections Work](http://bost.ocks.org/mike/selection/) 获取更多信息.
 
 <a name="selection_selectAll" href="#selection_selectAll">#</a> <i>selection</i>.<b>selectAll</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/selectAll.js "Source")
 
-For each selected element, selects the descendant elements that match the specified *selector* string. The elements in the returned selection are grouped by their corresponding parent node in this selection. If no element matches the specified selector for the current element, or if the *selector* is null, the group at the current index will be empty. The selected elements do not inherit data from this selection; use [*selection*.data](#selection_data) to propagate data to children. For example, to select the bold elements in every paragraph:
+对于已经选中的元素，进一步选择其所有符合条件的后代元素。返回的元素会按照其父节点进行分组。对于某个元素来说，如果没有符合条件的后代元素，则当前索引处的组将为 `null`. 选中的元素不会继承其父选择集的数据。可以使用 [*selection*.data](#selection_data) 操作将其传递给子元素。例如选择每个 `p` 标签中的所有的 `b` 元素:
 
 ```js
 var b = d3.selectAll("p").selectAll("b");
