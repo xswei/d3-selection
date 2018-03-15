@@ -138,7 +138,7 @@ var previous = d3.selectAll("p").select(function() {
 var b = d3.selectAll("p").selectAll("b");
 ```
 
-If the *selector* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). It must return an array of elements (or a pseudo-array, such as a NodeList), or the empty array if there are no matching elements. For example, to select the previous and next siblings of each paragraph:
+如果 *selector* 是一个函数，则在进一步选择前会先执行，并依次传递当前的数据 *d*，当前的索引 (*i*) 以及当前的分组 (*nodes*), 在函数内部 *this* 指向当前的 DOM 元素(*nodes*[*i*]), 返回值必须是一个元素数组(或者类数组，比如 NodeList)，也可以为空数组(如果没有符合条件的元素)。例如选择所有 `p` 元素的前一个同胞节点和后一个同胞节点:
 
 ```js
 var sibling = d3.selectAll("p").selectAll(function() {
@@ -149,45 +149,46 @@ var sibling = d3.selectAll("p").selectAll(function() {
 });
 ```
 
-Unlike [*selection*.select](#selection_select), *selection*.selectAll does affect grouping: each selected descendant is grouped by the parent element in the originating selection. Grouping plays an important role in the [data join](#joining-data). See [Nested Selections](http://bost.ocks.org/mike/nest/) and [How Selections Work](http://bost.ocks.org/mike/selection/) for more on this topic.
+与 [*selection*.select](#selection_select) 不同, *selection*.selectAll 会影响分组: 每个选中的后代元素根据其父元素进行分组。分组在 [data join](#joining-data) 中扮演着很重要的角色。参考 [Nested Selections](http://bost.ocks.org/mike/nest/) 和 [How Selections Work](http://bost.ocks.org/mike/selection/) 获取更多信息。
 
 <a name="selection_filter" href="#selection_filter">#</a> <i>selection</i>.<b>filter</b>(<i>filter</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/filter.js "Source")
 
-Filters the selection, returning a new selection that contains only the elements for which the specified *filter* is true. The *filter* may be specified either as a selector string or a function. If the *filter* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]).
+过滤选择集并返回一个新的过滤后的选择集。*filter* 可以是一个选择字符串也可以是一个函数。如果 *filter* 为函数则会为被过滤的选择集中的每个元素进行调用，并传递当前的数据 (*d*), 当前的索引 (*i*) 以及当前的分组 (*nodes*), 函数中 *this* 指向当前 DOM 元素 (*nodes*[*i*]).
 
-For example, to filter a selection of table rows to contain only even rows:
+例如，过滤出表格行中的偶数行:
 
 ```js
 var even = d3.selectAll("tr").filter(":nth-child(even)");
 ```
 
-This is approximately equivalent to using [d3.selectAll](#selectAll) directly, although the indexes may be different:
+这与直接使用 [d3.selectAll](#selectAll) 的效果近似等价，只不过索引可能不一样:
 
 ```js
 var even = d3.selectAll("tr:nth-child(even)");
 ```
 
-Similarly, using a function:
+用函数实现:
 
 ```js
 var even = d3.selectAll("tr").filter(function(d, i) { return i & 1; });
 ```
 
-Or using [*selection*.select](#selection_select):
+或者使用 [*selection*.select](#selection_select):
 
 ```js
 var even = d3.selectAll("tr").select(function(d, i) { return i & 1 ? this : null; });
 ```
 
-Note that the `:nth-child` pseudo-class is a one-based index rather than a zero-based index. Also, the above filter functions do not have precisely the same meaning as `:nth-child`; they rely on the selection index rather than the number of preceding sibling elements in the DOM.
+要注意的是 `:nth-child` 伪类基于 1 的索引而不是基于 0 开始。此外上述过滤函数与 `:nth-child`
+的含义完全不同，一个是基于索引而另一个是基于 DOM 中兄弟元素的数量。
 
-The returned filtered selection preserves the parents of this selection, but like [*array*.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter), it does not preserve indexes as some elements may be removed; use [*selection*.select](#selection_select) to preserve the index, if needed.
+返回的经过过滤的选择集保存了选择集的父元素，但与 [*array*.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 类似不会保留索引，因为在过滤中可能会删除某些元素，如果需要可以使用 [*selection*.select](#selection_select) 来保留索引。
 
 <a name="selection_merge" href="#selection_merge">#</a> <i>selection</i>.<b>merge</b>(<i>other</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/merge.js "Source")
 
-Returns a new selection merging this selection with the specified *other* selection. The returned selection has the same number of groups and the same parents as this selection. Any missing (null) elements in this selection are filled with the corresponding element, if present (not null), from the specified *selection*. (If the *other* selection has additional groups or parents, they are ignored.)
+返回一个将当前选择集和指定的 *other* 选择集合并之后的新的选择集。返回的选择集与当前选择集有相同数量的分组以及相同的父元素。当前选择集中的任何空缺 (`null`) 都会被指定的 *other* 中的对应的元素填充(如果存在的话)，如果 *other* 选择集有附加的组或者父元素，则将其忽略。
 
-This method is commonly used to merge the [enter](#selection_enter) and [update](#selection_data) selections after a [data-join](#joining-data). After modifying the entering and updating elements separately, you can merge the two selections and perform operations on both without duplicate code. For example:
+这个方法通常用来在 [data-join](#joining-data) 操作之后合并 [enter](#selection_enter) 和 [update](#selection_data)。在单独修改输入和更新元素之后对其进行合并执行其他的操作而不需要额外的代码。例如:
 
 ```js
 var circle = svg.selectAll("circle").data(data) // UPDATE
