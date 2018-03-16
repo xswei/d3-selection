@@ -63,7 +63,7 @@ var div = d3.selectAll("div");
 
 选择集接收 [W3C selector strings(选择字符串)](http://www.w3.org/TR/selectors-api/) 比如 `.fancy` 用来选择类名为 *fancy* 的元素， `div` 可以用来选择 *DIV* 元素。选择元素有两种模式: `select` 和 `selectAll`: `select` 只会选中第一个符合条件的元素与，而 `selectAll` 则会选中所有符合条的元素。两个顶级的选择方法: [d3.select](#select) 和 [d3.selectAll](#selectAll) 的查找范围为整个文档。两个子选择方法: [*selection*.select](#selection_select) 和 [*selection*.selectAll](#selection_selectAll) 则会将查找范围限制为*selection* 的后代元素。
 
-<a name="selection" href="#selection">#</a> d3.<b>selection</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/index.js#L38 "Source")
+<a name="selection" href="#selection">#</a> d3.<b>selection</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/index.js#L38 "Source")
 
 选择器根元素: `document.documentElement`. 整个方法可以用来测试是否为选择集实例 (`instanceof d3.selection`) 也可以用来扩展选择集原型链，比如为 `checkbox` 添加一个 `check` 方法:
 
@@ -81,7 +81,7 @@ d3.selection.prototype.checked = function(value) {
 d3.selectAll("input[type=checkbox]").checked(true);
 ```
 
-<a name="select" href="#select">#</a> d3.<b>select</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/select.js#L3 "Source")
+<a name="select" href="#select">#</a> d3.<b>select</b>(<i>selector</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/select.js#L3 "Source")
 
 选中符合条件的第一个元素，选择条件为 *selector* 字符串。如果没有元素被选中则返回空选择集。如果有多个元素都符合条件则返回包含第一个 (文档顺序) 匹配的元素的选择集。例如选择第一个 `a` 元素:
 
@@ -97,7 +97,7 @@ d3.selectAll("p").on("click", function() {
 });
 ```
 
-<a name="selectAll" href="#selectAll">#</a> d3.<b>selectAll</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selectAll.js#L3 "Source")
+<a name="selectAll" href="#selectAll">#</a> d3.<b>selectAll</b>(<i>selector</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selectAll.js#L3 "Source")
 
 选择所有与指定的 *selector* 匹配的元素。被选中的元素顺序会按其在文档中的顺序排列(从上到下)。如果没有元素被选中，或者 *selector* 为 null 或 undefined 则返回空选择集。例如选择所有的 `p` 元素：
 
@@ -111,7 +111,7 @@ var paragraph = d3.selectAll("p");
 d3.selectAll(document.links).style("color", "red");
 ```
 
-<a name="selection_select" href="#selection_select">#</a> <i>selection</i>.<b>select</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/select.js "Source")
+<a name="selection_select" href="#selection_select">#</a> <i>selection</i>.<b>select</b>(<i>selector</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/select.js "Source")
 
 对于每个已经选中的元素，进一步选择它们的第一个匹配的后代元素。如果没有元素匹配的元素被选中，则返回的选择集中当前索引处的元素为 `null`. 如果 `selector` 为 `null` 则返回的选择集中的每个元素都为 `null`，也就是产生一个空选择集。如果当前的元素有关联数据，则数据将被传递给对应的被选中的元素。如果有多个元素匹配当前的选择条件则返回第一个符合条件的元素。例如选中文档中所有的 `p` 元素下的第一个 `b` 元素:
 
@@ -130,7 +130,7 @@ var previous = d3.selectAll("p").select(function() {
 与 [*selection*.selectAll](#selection_selectAll) 不同, *selection*.select 不会影响分组: 它会保存现有的分组结构以及索引并且将关联数据(如果有的话)传递给选中的子节点。分组在
 [data join](#joining-data) 中扮演着很重要的角色。参考 [Nested Selections](http://bost.ocks.org/mike/nest/) 和 [How Selections Work](http://bost.ocks.org/mike/selection/) 获取更多信息.
 
-<a name="selection_selectAll" href="#selection_selectAll">#</a> <i>selection</i>.<b>selectAll</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/selectAll.js "Source")
+<a name="selection_selectAll" href="#selection_selectAll">#</a> <i>selection</i>.<b>selectAll</b>(<i>selector</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/selectAll.js "Source")
 
 对于已经选中的元素，进一步选择其所有符合条件的后代元素。返回的元素会按照其父节点进行分组。对于某个元素来说，如果没有符合条件的后代元素，则当前索引处的组将为 `null`. 选中的元素不会继承其父选择集的数据。可以使用 [*selection*.data](#selection_data) 操作将其传递给子元素。例如选择每个 `p` 标签中的所有的 `b` 元素:
 
@@ -151,7 +151,7 @@ var sibling = d3.selectAll("p").selectAll(function() {
 
 与 [*selection*.select](#selection_select) 不同, *selection*.selectAll 会影响分组: 每个选中的后代元素根据其父元素进行分组。分组在 [data join](#joining-data) 中扮演着很重要的角色。参考 [Nested Selections](http://bost.ocks.org/mike/nest/) 和 [How Selections Work](http://bost.ocks.org/mike/selection/) 获取更多信息。
 
-<a name="selection_filter" href="#selection_filter">#</a> <i>selection</i>.<b>filter</b>(<i>filter</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/filter.js "Source")
+<a name="selection_filter" href="#selection_filter">#</a> <i>selection</i>.<b>filter</b>(<i>filter</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/filter.js "Source")
 
 过滤选择集并返回一个新的过滤后的选择集。*filter* 可以是一个选择字符串也可以是一个函数。如果 *filter* 为函数则会为被过滤的选择集中的每个元素进行调用，并传递当前的数据 (*d*), 当前的索引 (*i*) 以及当前的分组 (*nodes*), 函数中 *this* 指向当前 DOM 元素 (*nodes*[*i*]).
 
@@ -184,7 +184,7 @@ var even = d3.selectAll("tr").select(function(d, i) { return i & 1 ? this : null
 
 返回的经过过滤的选择集保存了选择集的父元素，但与 [*array*.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 类似不会保留索引，因为在过滤中可能会删除某些元素，如果需要可以使用 [*selection*.select](#selection_select) 来保留索引。
 
-<a name="selection_merge" href="#selection_merge">#</a> <i>selection</i>.<b>merge</b>(<i>other</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/merge.js "Source")
+<a name="selection_merge" href="#selection_merge">#</a> <i>selection</i>.<b>merge</b>(<i>other</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/merge.js "Source")
 
 返回一个将当前选择集和指定的 *other* 选择集合并之后的新的选择集。返回的选择集与当前选择集有相同数量的分组以及相同的父元素。当前选择集中的任何空缺 (`null`) 都会被指定的 *other* 中的对应的元素填充(如果存在的话)，如果 *other* 选择集有附加的组或者父元素，则将其忽略。
 
@@ -202,61 +202,61 @@ circle = circle.enter().append("circle") // ENTER
     .style("stroke", "black");
 ```
 
-See [*selection*.data](#selection_data) for a more complete explanation of this code, which is known as the general update pattern.
+参考 [*selection*.data](#selection_data) 获取更多信息，这也是更新 DOM 的一般形式。
 
-This method is not intended for concatenating arbitrary selections, however: if both this selection and the specified *other* selection have (non-null) elements at the same index, this selection’s element is returned in the merge and the *other* selection’s element is ignored.
+但是这个方法不适用于合并任意选择集: 如果原选择集与指定的 *other* 选择集在同样的索引下都有元素，则原选择集中的元素会被返回而 *other* 选择集中的元素会被忽略。
 
-<a name="matcher" href="#matcher">#</a> d3.<b>matcher</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/matcher.js "Source")
+<a name="matcher" href="#matcher">#</a> d3.<b>matcher</b>(<i>selector</i>) [<>源码](https://github.com/d3/d3-selection/blob/master/src/matcher.js "Source")
 
-Given the specified *selector*, returns a function which returns true if `this` element [matches](https://developer.mozilla.org/en-US/docs/Web/API/Element/matches) the specified selector. This method is used internally by [*selection*.filter](#selection_filter). For example, this:
+根据指定的 *selector* 返回一个用来判断 *this* 元素是否匹配此选择器的方法，这个方法在 [*selection*.filter](#selection_filter) 内部使用，例如:
 
 ```js
 var div = selection.filter("div");
 ```
 
-Is equivalent to:
+等价于:
 
 ```js
 var div = selection.filter(d3.matcher("div"));
 ```
 
-(Although D3 is not a compatibility layer, this implementation does support vendor-prefixed implementations due to the recent standardization of *element*.matches.)
+(尽管 D3 不是一个做兼容的层，虽然 *element*.matches 标准的不断变化，但是 D3 内部还是会做前缀处理)
 
-<a name="selector" href="#selector">#</a> d3.<b>selector</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selector.js "Source")
+<a name="selector" href="#selector">#</a> d3.<b>selector</b>(<i>selector</i>) [<>源码](https://github.com/d3/d3-selection/blob/master/src/selector.js "Source")
 
-Given the specified *selector*, returns a function which returns the first descendant of `this` element that matches the specified selector. This method is used internally by [*selection*.select](#selection_select). For example, this:
+根据指定的 *selector* 返回一个函数，这个函数返回 `this` 元素的第一个符合条件的后代元素。内部通过 [*selection*.select](#selection_select) 实现。例如:
 
 ```js
 var div = selection.select("div");
 ```
 
-Is equivalent to:
+等价于:
 
 ```js
 var div = selection.select(d3.selector("div"));
 ```
 
-<a name="selectorAll" href="#selectorAll">#</a> d3.<b>selectorAll</b>(<i>selector</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selectAll.js "Source")
+<a name="selectorAll" href="#selectorAll">#</a> d3.<b>selectorAll</b>(<i>selector</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selectAll.js "Source")
 
-Given the specified *selector*, returns a function which returns all descendants of `this` element that match the specified selector. This method is used internally by [*selection*.selectAll](#selection_selectAll). For example, this:
+根据指定的 *selector* 返回一个函数，这个函数返回 `this` 元素的所有符合条件的后代元素。内部通过 [*selection*.selectAll](#selection_selectAll) 实现。例如:
 
 ```js
 var div = selection.selectAll("div");
 ```
 
-Is equivalent to:
+等价于:
 
 ```js
 var div = selection.selectAll(d3.selectorAll("div"));
 ```
 
-<a name="window" href="#window">#</a> d3.<b>window</b>(<i>node</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/window.js "Source")
+<a name="window" href="#window">#</a> d3.<b>window</b>(<i>node</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/window.js "Source")
 
-Returns the owner window for the specified *node*. If *node* is a node, returns the owner document’s default view; if *node* is a document, returns its default view; otherwise returns the *node*.
+返回指定的 *node* 所属的 `window`。如果 *node* 为 `Node` 则返回所属文档的默认视图,如果 *node* 为 `document` 则返回其默认视图, 其他情况返回 *node*。
 
-<a name="style" href="#style">#</a> d3.<b>style</b>(<i>node</i>, <i>name</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/style.js#L32 "Source")
+<a name="style" href="#style">#</a> d3.<b>style</b>(<i>node</i>, <i>name</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/style.js#L32 "Source")
 
-Returns the value of the style property with the specified *name* for the specified *node*. If the *node* has an inline style with the specified *name*, its value is returned; otherwise, the [computed property value](https://developer.mozilla.org/en-US/docs/Web/CSS/computed_value) is returned. See also [*selection*.style](#selection_style).
+返回指定 *node* 的 *name* 对应的 `style` 属性值. 如果 *node* 对应的 *name* 样式为行内样式，则返回其值。否则返回 [computed property value](https://developer.mozilla.org/en-US/docs/Web/CSS/computed_value)，参考 [*selection*.style](#selection_style).
 
 ### Modifying Elements
 
@@ -270,7 +270,7 @@ d3.select("a")
 
 To experiment with selections, visit [d3js.org](https://d3js.org) and open your browser’s developer console! (In Chrome, open the console with ⌥⌘J.) Select elements and then inspect the returned selection to see which elements are selected and how they are grouped. Call selection methods and see how the page content changes.
 
-<a name="selection_attr" href="#selection_attr">#</a> <i>selection</i>.<b>attr</b>(<i>name</i>[, <i>value</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/attr.js "Source")
+<a name="selection_attr" href="#selection_attr">#</a> <i>selection</i>.<b>attr</b>(<i>name</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/attr.js "Source")
 
 If a *value* is specified, sets the attribute with the specified *name* to the specified value on the selected elements and returns this selection. If the *value* is a constant, all elements are given the same attribute value; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s attribute. A null value will remove the specified attribute.
 
@@ -278,7 +278,7 @@ If a *value* is not specified, returns the current value of the specified attrib
 
 The specified *name* may have a namespace prefix, such as `xlink:href` to specify the `href` attribute in the XLink namespace. See [namespaces](#namespaces) for the map of supported namespaces; additional namespaces can be registered by adding to the map.
 
-<a name="selection_classed" href="#selection_classed">#</a> <i>selection</i>.<b>classed</b>(<i>names</i>[, <i>value</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/classed.js "Source")
+<a name="selection_classed" href="#selection_classed">#</a> <i>selection</i>.<b>classed</b>(<i>names</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/classed.js "Source")
 
 If a *value* is specified, assigns or unassigns the specified CSS class *names* on the selected elements by setting the `class` attribute or modifying the `classList` property and returns this selection. The specified *names* is a string of space-separated class names. For example, to assign the classes `foo` and `bar` to the selected elements:
 
@@ -294,7 +294,7 @@ selection.classed("foo", function() { return Math.random() > 0.5; });
 
 If a *value* is not specified, returns true if and only if the first (non-null) selected element has the specified *classes*. This is generally useful only if you know the selection contains exactly one element.
 
-<a name="selection_style" href="#selection_style">#</a> <i>selection</i>.<b>style</b>(<i>name</i>[, <i>value</i>[, <i>priority</i>]]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/style.js "Source")
+<a name="selection_style" href="#selection_style">#</a> <i>selection</i>.<b>style</b>(<i>name</i>[, <i>value</i>[, <i>priority</i>]]) [<>源码](https://github.com/d3/d3-selection/blob/master/src/selection/style.js "Source")
 
 If a *value* is specified, sets the style property with the specified *name* to the specified value on the selected elements and returns this selection. If the *value* is a constant, then all elements are given the same style property value; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s style property. A null value will remove the style property. An optional *priority* may also be specified, either as null or the string `important` (without the exclamation point).
 
@@ -302,7 +302,7 @@ If a *value* is not specified, returns the current value of the specified style 
 
 Caution: unlike many SVG attributes, CSS styles typically have associated units. For example, `3px` is a valid stroke-width property value, while `3` is not. Some browsers implicitly assign the `px` (pixel) unit to numeric values, but not all browsers do: IE, for example, throws an “invalid arguments” error!
 
-<a name="selection_property" href="#selection_property">#</a> <i>selection</i>.<b>property</b>(<i>name</i>[, <i>value</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/property.js "Source")
+<a name="selection_property" href="#selection_property">#</a> <i>selection</i>.<b>property</b>(<i>name</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/property.js "Source")
 
 Some HTML elements have special properties that are not addressable using attributes or styles, such as a form field’s text `value` and a checkbox’s `checked` boolean. Use this method to get or set these properties.
 
@@ -310,13 +310,13 @@ If a *value* is specified, sets the property with the specified *name* to the sp
 
 If a *value* is not specified, returns the value of the specified property for the first (non-null) element in the selection. This is generally useful only if you know the selection contains exactly one element.
 
-<a name="selection_text" href="#selection_text">#</a> <i>selection</i>.<b>text</b>([<i>value</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/text.js "Source")
+<a name="selection_text" href="#selection_text">#</a> <i>selection</i>.<b>text</b>([<i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/text.js "Source")
 
 If a *value* is specified, sets the [text content](http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-textContent) to the specified value on all selected elements, replacing any existing child elements. If the *value* is a constant, then all elements are given the same text content; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s text content. A null value will clear the content.
 
 If a *value* is not specified, returns the text content for the first (non-null) element in the selection. This is generally useful only if you know the selection contains exactly one element.
 
-<a name="selection_html" href="#selection_html">#</a> <i>selection</i>.<b>html</b>([<i>value</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/html.js "Source")
+<a name="selection_html" href="#selection_html">#</a> <i>selection</i>.<b>html</b>([<i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/html.js "Source")
 
 If a *value* is specified, sets the [inner HTML](http://dev.w3.org/html5/spec-LC/apis-in-html-documents.html#innerhtml) to the specified value on all selected elements, replacing any existing child elements. If the *value* is a constant, then all elements are given the same inner HTML; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s inner HTML. A null value will clear the content.
 
@@ -324,7 +324,7 @@ If a *value* is not specified, returns the inner HTML for the first (non-null) e
 
 Use [*selection*.append](#selection_append) or [*selection*.insert](#selection_insert) instead to create data-driven content; this method is intended for when you want a little bit of HTML, say for rich formatting. Also, *selection*.html is only supported on HTML elements. SVG elements and other non-HTML elements do not support the innerHTML property, and thus are incompatible with *selection*.html. Consider using [XMLSerializer](https://developer.mozilla.org/en-US/docs/XMLSerializer) to convert a DOM subtree to text. See also the [innersvg polyfill](https://code.google.com/p/innersvg/), which provides a shim to support the innerHTML property on SVG elements.
 
-<a name="selection_append" href="#selection_append">#</a> <i>selection</i>.<b>append</b>(<i>type</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/append.js "Source")
+<a name="selection_append" href="#selection_append">#</a> <i>selection</i>.<b>append</b>(<i>type</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/append.js "Source")
 
 If the specified *type* is a string, appends a new element of this type (tag name) as the last child of each selected element, or before the next following sibling in the update selection if this is an [enter selection](#selection_enter). The latter behavior for enter selections allows you to insert elements into the DOM in an order consistent with the new bound data; however, note that [*selection*.order](#selection_order) may still be required if updating elements change order (*i.e.*, if the order of new data is inconsistent with old data).
 
@@ -354,7 +354,7 @@ In both cases, this method returns a new selection containing the appended eleme
 
 The specified *name* may have a namespace prefix, such as `svg:text` to specify a `text` attribute in the SVG namespace. See [namespaces](#namespaces) for the map of supported namespaces; additional namespaces can be registered by adding to the map. If no namespace is specified, the namespace will be inherited from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used (for example, `svg` implies `svg:svg`).
 
-<a name="selection_insert" href="#selection_insert">#</a> <i>selection</i>.<b>insert</b>(<i>type</i>[, <i>before</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/insert.js "Source")
+<a name="selection_insert" href="#selection_insert">#</a> <i>selection</i>.<b>insert</b>(<i>type</i>[, <i>before</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/insert.js "Source")
 
 If the specified *type* is a string, inserts a new element of this type (tag name) before the first element matching the specified *before* selector for each selected element. For example, a *before* selector `:first-child` will prepend nodes before the first child. If *before* is not specified, it defaults to null. (To append elements in an order consistent with [bound data](#joining-data), use [*selection*.append](#selection_append).)
 
@@ -384,11 +384,11 @@ In both cases, this method returns a new selection containing the appended eleme
 
 The specified *name* may have a namespace prefix, such as `svg:text` to specify a `text` attribute in the SVG namespace. See [namespaces](#namespaces) for the map of supported namespaces; additional namespaces can be registered by adding to the map. If no namespace is specified, the namespace will be inherited from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used (for example, `svg` implies `svg:svg`).
 
-<a name="selection_remove" href="#selection_remove">#</a> <i>selection</i>.<b>remove</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/remove.js "Source")
+<a name="selection_remove" href="#selection_remove">#</a> <i>selection</i>.<b>remove</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/remove.js "Source")
 
 Removes the selected elements from the document. Returns this selection (the removed elements) which are now detached from the DOM. There is not currently a dedicated API to add removed elements back to the document; however, you can pass a function to [*selection*.append](#selection_append) or [*selection*.insert](#selection_insert) to re-add elements.
 
-<a name="selection_clone" href="#selection_clone">#</a> <i>selection</i>.<b>clone</b>([<i>deep</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/clone.js "Source")
+<a name="selection_clone" href="#selection_clone">#</a> <i>selection</i>.<b>clone</b>([<i>deep</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/clone.js "Source")
 
 Inserts clones of the selected elements immediately following the selected elements and returns a selection of the newly added clones. If *deep* is truthy, the descendant nodes of the selected elements will be cloned as well. Otherwise, only the elements themselves will be cloned. Equivalent to:
 
@@ -398,7 +398,7 @@ selection.select(function() {
 });
 ```
 
-<a name="selection_sort" href="#selection_sort">#</a> <i>selection</i>.<b>sort</b>(<i>compare</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/sort.js "Source")
+<a name="selection_sort" href="#selection_sort">#</a> <i>selection</i>.<b>sort</b>(<i>compare</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/sort.js "Source")
 
 Returns a new selection that contains a copy of each group in this selection sorted according to the *compare* function. After sorting, re-inserts elements to match the resulting order (per [*selection*.order](#selection_order)).
 
@@ -406,11 +406,11 @@ The compare function, which defaults to [ascending](https://github.com/d3/d3-arr
 
 Note that sorting is not guaranteed to be stable; however, it is guaranteed to have the same behavior as your browser’s built-in [sort](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort) method on arrays.
 
-<a name="selection_order" href="#selection_order">#</a> <i>selection</i>.<b>order</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/order.js "Source")
+<a name="selection_order" href="#selection_order">#</a> <i>selection</i>.<b>order</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/order.js "Source")
 
 Re-inserts elements into the document such that the document order of each group matches the selection order. This is equivalent to calling [*selection*.sort](#selection_sort) if the data is already sorted, but much faster.
 
-<a name="selection_raise" href="#selection_raise">#</a> <i>selection</i>.<b>raise</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/raise.js "Source")
+<a name="selection_raise" href="#selection_raise">#</a> <i>selection</i>.<b>raise</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/raise.js "Source")
 
 Re-inserts each selected element, in order, as the last child of its parent. Equivalent to:
 
@@ -420,7 +420,7 @@ selection.each(function() {
 });
 ```
 
-<a name="selection_lower" href="#selection_lower">#</a> <i>selection</i>.<b>lower</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/lower.js "Source")
+<a name="selection_lower" href="#selection_lower">#</a> <i>selection</i>.<b>lower</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/lower.js "Source")
 
 Re-inserts each selected element, in order, as the first child of its parent. Equivalent to:
 
@@ -430,11 +430,11 @@ selection.each(function() {
 });
 ```
 
-<a name="create" href="#create">#</a> d3.<b>create</b>(<i>name</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/create.js "Source")
+<a name="create" href="#create">#</a> d3.<b>create</b>(<i>name</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/create.js "Source")
 
 Given the specified element *name*, returns a single-element selection containing a detached element of the given name in the current document.
 
-<a name="creator" href="#creator">#</a> d3.<b>creator</b>(<i>name</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/creator.js "Source")
+<a name="creator" href="#creator">#</a> d3.<b>creator</b>(<i>name</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/creator.js "Source")
 
 Given the specified element *name*, returns a function which creates an element of the given name, assuming that `this` is the parent element. This method is used internally by [*selection*.append](#selection_append) and [*selection*.insert](#selection_insert) to create new elements. For example, this:
 
@@ -454,7 +454,7 @@ See [namespace](#namespace) for details on supported namespace prefixes, such as
 
 For an introduction to D3’s data joins, see [Thinking With Joins](http://bost.ocks.org/mike/join/). Also see the [General Update Pattern](http://bl.ocks.org/mbostock/3808218) examples.
 
-<a name="selection_data" href="#selection_data">#</a> <i>selection</i>.<b>data</b>([<i>data</i>[, <i>key</i>]]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/data.js "Source")
+<a name="selection_data" href="#selection_data">#</a> <i>selection</i>.<b>data</b>([<i>data</i>[, <i>key</i>]]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/data.js "Source")
 
 Joins the specified array of *data* with the selected elements, returning a new selection that represents the *update* selection: the elements successfully bound to data. Also defines the [enter](#selection_enter) and [exit](#selection_exit) selections on the returned selection, which can be used to add or remove elements to correspond to the new data. The specified *data* is an array of arbitrary values (*e.g.*, numbers or objects), or a function that returns an array of values for each group. When data is assigned to an element, it is stored in the property `__data__`, thus making the data “sticky” and available on re-selection.
 
@@ -550,7 +550,7 @@ If *data* is not specified, this method returns the array of data for the select
 
 This method cannot be used to clear bound data; use [*selection*.datum](#selection_datum) instead.
 
-<a name="selection_enter" href="#selection_enter">#</a> <i>selection</i>.<b>enter</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/enter.js "Source")
+<a name="selection_enter" href="#selection_enter">#</a> <i>selection</i>.<b>enter</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/enter.js "Source")
 
 Returns the enter selection: placeholder nodes for each datum that had no corresponding DOM element in the selection. (The enter selection is empty for selections not returned by [*selection*.data](#selection_data).)
 
@@ -577,7 +577,7 @@ If the body is initially empty, the above code will create six new DIV elements,
 
 Conceptually, the enter selection’s placeholders are pointers to the parent element (in this example, the document body). The enter selection is typically only used transiently to append elements, and is often [merged](#selection_merge) with the update selection after appending, such that modifications can be applied to both entering and updating elements.
 
-<a name="selection_exit" href="#selection_exit">#</a> <i>selection</i>.<b>exit</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/exit.js "Source")
+<a name="selection_exit" href="#selection_exit">#</a> <i>selection</i>.<b>exit</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/exit.js "Source")
 
 Returns the exit selection: existing DOM elements in the selection for which no new datum was found. (The exit selection is empty for selections not returned by [*selection*.data](#selection_data).)
 
@@ -612,7 +612,7 @@ Now the document body looks like this:
 
 The order of the DOM elements matches the order of the data because the old data’s order and the new data’s order were consistent. If the new data’s order is different, use [*selection*.order](#selection_order) to reorder the elements in the DOM. See the [General Update Pattern](http://bl.ocks.org/mbostock/3808218) example thread for more on data joins.
 
-<a name="selection_datum" href="#selection_datum">#</a> <i>selection</i>.<b>datum</b>([<i>value</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/datum.js "Source")
+<a name="selection_datum" href="#selection_datum">#</a> <i>selection</i>.<b>datum</b>([<i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/datum.js "Source")
 
 Gets or sets the bound data for each selected element. Unlike [*selection*.data](#selection_data), this method does not compute a join and does not affect indexes or the enter and exit selections.
 
@@ -639,7 +639,7 @@ selection.datum(function() { return this.dataset; })
 
 For interaction, selections allow listening for and dispatching of events.
 
-<a name="selection_on" href="#selection_on">#</a> <i>selection</i>.<b>on</b>(<i>typenames</i>[, <i>listener</i>[, <i>capture</i>]]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/on.js "Source")
+<a name="selection_on" href="#selection_on">#</a> <i>selection</i>.<b>on</b>(<i>typenames</i>[, <i>listener</i>[, <i>capture</i>]]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/on.js "Source")
 
 Adds or removes a *listener* to each selected element for the specified event *typenames*. The *typenames* is a string event type, such as `click`, `mouseover`, or `submit`; any [DOM event type](https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events) supported by your browser may be used. The type may be optionally followed by a period (`.`) and a name; the optional name allows multiple callbacks to be registered to receive events of the same type, such as `click.foo` and `click.bar`. To specify multiple typenames, separate typenames with spaces, such as `input change` or `click.foo click.bar`.
 
@@ -651,7 +651,7 @@ An optional *capture* flag may be specified which corresponds to the W3C [useCap
 
 If a *listener* is not specified, returns the currently-assigned listener for the specified event *typename* on the first (non-null) selected element, if any. If multiple typenames are specified, the first matching listener is returned.
 
-<a name="selection_dispatch" href="#selection_dispatch">#</a> <i>selection</i>.<b>dispatch</b>(<i>type</i>[, <i>parameters</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/dispatch.js "Source")
+<a name="selection_dispatch" href="#selection_dispatch">#</a> <i>selection</i>.<b>dispatch</b>(<i>type</i>[, <i>parameters</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/dispatch.js "Source")
 
 Dispatches a [custom event](http://www.w3.org/TR/dom/#interface-customevent) of the specified *type* to each selected element, in order. An optional *parameters* map may be specified to set additional properties of the event. It may contain the following fields:
 
@@ -667,23 +667,23 @@ The current [event](https://developer.mozilla.org/en-US/docs/DOM/event), if any.
 
 If you use Babel, Webpack, or another ES6-to-ES5 bundler, be aware that the value of d3.event changes during an event! An import of d3.event must be a [live binding](http://www.2ality.com/2015/07/es6-module-exports.html), so you may need to configure the bundler to import from D3’s ES6 modules rather than from the generated UMD bundle; not all bundlers observe [jsnext:main](https://github.com/rollup/rollup/wiki/jsnext:main). Also beware of conflicts with the [*window*.event](https://developer.mozilla.org/en-US/docs/Web/API/Window/event) global.
 
-<a name="customEvent" href="#customEvent">#</a> d3.<b>customEvent</b>(<i>event</i>, <i>listener</i>[, <i>that</i>[, <i>arguments</i>]]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/on.js#L98 "Source")
+<a name="customEvent" href="#customEvent">#</a> d3.<b>customEvent</b>(<i>event</i>, <i>listener</i>[, <i>that</i>[, <i>arguments</i>]]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/on.js#L98 "Source")
 
 Invokes the specified *listener*, using the specified *that* `this` context and passing the specified *arguments*, if any. During the invocation, [d3.event](#event) is set to the specified *event*; after the listener returns (or throws an error), d3.event is restored to its previous value. In addition, sets *event*.sourceEvent to the prior value of d3.event, allowing custom events to retain a reference to the originating native event. Returns the value returned by the *listener*.
 
-<a name="mouse" href="#mouse">#</a> d3.<b>mouse</b>(<i>container</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/mouse.js "Source")
+<a name="mouse" href="#mouse">#</a> d3.<b>mouse</b>(<i>container</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/mouse.js "Source")
 
 Returns the *x* and *y* coordinates of the [current event](#event) relative to the specified *container*. The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as a two-element array of numbers [*x*, *y*].
 
-<a name="touch" href="#touch">#</a> d3.<b>touch</b>(<i>container</i>[, <i>touches</i>], <i>identifier</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/touch.js "Source")
+<a name="touch" href="#touch">#</a> d3.<b>touch</b>(<i>container</i>[, <i>touches</i>], <i>identifier</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/touch.js "Source")
 
 Returns the *x* and *y* coordinates of the touch with the specified *identifier* associated with the [current event](#event) relative to the specified *container*. The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as a two-element array of numbers [*x*, *y*]. If there is no touch with the specified identifier in *touches*, returns null; this can be useful for ignoring touchmove events where the only some touches have moved. If *touches* is not specified, it defaults to the current event’s [changedTouches](http://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/javascript/instp/TouchEvent/changedTouches) property.
 
-<a name="touches" href="#touches">#</a> d3.<b>touches</b>(<i>container</i>[, <i>touches</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/touches.js "Source")
+<a name="touches" href="#touches">#</a> d3.<b>touches</b>(<i>container</i>[, <i>touches</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/touches.js "Source")
 
 Returns the *x* and *y* coordinates of the touches associated with the [current event](#event) relative to the specified *container*. The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as an array of two-element arrays of numbers \[\[*x1*, *y1*], [*x2*, *y2*], …\]. If *touches* is not specified, it defaults to the current event’s [touches](http://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/javascript/instp/TouchEvent/touches) property.
 
-<a name="clientPoint" href="#clientPoint">#</a> d3.<b>clientPoint</b>(<i>container</i>, <i>event</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/point.js "Source")
+<a name="clientPoint" href="#clientPoint">#</a> d3.<b>clientPoint</b>(<i>container</i>, <i>event</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/point.js "Source")
 
 Returns the *x* and *y* coordinates of the specified *event* relative to the specified *container*. (The *event* may also be a [touch](https://www.w3.org/TR/touch-events/#touch-interface).) The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as a two-element array of numbers [*x*, *y*].
 
@@ -691,7 +691,7 @@ Returns the *x* and *y* coordinates of the specified *event* relative to the spe
 
 For advanced usage, selections provide methods for custom control flow.
 
-<a name="selection_each" href="#selection_each">#</a> <i>selection</i>.<b>each</b>(<i>function</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/each.js "Source")
+<a name="selection_each" href="#selection_each">#</a> <i>selection</i>.<b>each</b>(<i>function</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/each.js "Source")
 
 Invokes the specified *function* for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). This method can be used to invoke arbitrary code for each selected element, and is useful for creating a context to access parent and child data simultaneously, such as:
 
@@ -705,7 +705,7 @@ parent.each(function(p, j) {
 
 See [Sized Donut Multiples](http://bl.ocks.org/mbostock/4c5fad723c87d2fd8273) for an example.
 
-<a name="selection_call" href="#selection_call">#</a> <i>selection</i>.<b>call</b>(<i>function</i>[, <i>arguments…</i>]) [<>](https://github.com/d3/d3-selection/blob/master/src/selection/call.js "Source")
+<a name="selection_call" href="#selection_call">#</a> <i>selection</i>.<b>call</b>(<i>function</i>[, <i>arguments…</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/call.js "Source")
 
 Invokes the specified *function* exactly once, passing in this selection along with any optional *arguments*. Returns this selection. This is equivalent to invoking the function by hand but facilitates method chaining. For example, to set several styles in a reusable function:
 
@@ -731,19 +731,19 @@ name(d3.selectAll("div"), "John", "Snow");
 
 The only difference is that *selection*.call always returns the *selection* and not the return value of the called *function*, `name`.
 
-<a name="selection_empty" href="#selection_empty">#</a> <i>selection</i>.<b>empty</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/empty.js "Source")
+<a name="selection_empty" href="#selection_empty">#</a> <i>selection</i>.<b>empty</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/empty.js "Source")
 
 Returns true if this selection contains no (non-null) elements.
 
-<a name="selection_nodes" href="#selection_nodes">#</a> <i>selection</i>.<b>nodes</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/nodes.js "Source")
+<a name="selection_nodes" href="#selection_nodes">#</a> <i>selection</i>.<b>nodes</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/nodes.js "Source")
 
 Returns an array of all (non-null) elements in this selection.
 
-<a name="selection_node" href="#selection_node">#</a> <i>selection</i>.<b>node</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/node.js "Source")
+<a name="selection_node" href="#selection_node">#</a> <i>selection</i>.<b>node</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/node.js "Source")
 
 Returns the first (non-null) element in this selection. If the selection is empty, returns null.
 
-<a name="selection_size" href="#selection_size">#</a> <i>selection</i>.<b>size</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/selection/size.js "Source")
+<a name="selection_size" href="#selection_size">#</a> <i>selection</i>.<b>size</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/size.js "Source")
 
 Returns the total number of elements in this selection.
 
@@ -751,7 +751,7 @@ Returns the total number of elements in this selection.
 
 D3 locals allow you to define local state independent of data. For instance, when rendering [small multiples](http://bl.ocks.org/mbostock/e1192fe405703d8321a5187350910e08) of time-series data, you might want the same *x*-scale for all charts but distinct *y*-scales to compare the relative performance of each metric. D3 locals are scoped by DOM elements: on set, the value is stored on the given element; on get, the value is retrieved from given element or the nearest ancestor that defines it.
 
-<a name="local" href="#local">#</a> d3.<b>local</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/local.js "Source")
+<a name="local" href="#local">#</a> d3.<b>local</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/local.js "Source")
 
 Declares a new local variable. For example:
 
@@ -761,7 +761,7 @@ var foo = d3.local();
 
 Like `var`, each local is a distinct symbolic reference; unlike `var`, the value of each local is also scoped by the DOM.
 
-<a name="local_set" href="#local_set">#</a> <i>local</i>.<b>set</b>(<i>node</i>, <i>value</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/local.js#L18 "Source")
+<a name="local_set" href="#local_set">#</a> <i>local</i>.<b>set</b>(<i>node</i>, <i>value</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/local.js#L18 "Source")
 
 Sets the value of this local on the specified *node* to the *value*, and returns the specified *value*. This is often performed using [*selection*.each](#selection_each):
 
@@ -775,15 +775,15 @@ If you are just setting a single variable, consider using [*selection*.property]
 selection.property(foo, function(d) { return d.value; });
 ```
 
-<a name="local_get" href="#local_get">#</a> <i>local</i>.<b>get</b>(<i>node</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/local.js#L13 "Source")
+<a name="local_get" href="#local_get">#</a> <i>local</i>.<b>get</b>(<i>node</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/local.js#L13 "Source")
 
 Returns the value of this local on the specified *node*. If the *node* does not define this local, returns the value from the nearest ancestor that defines it. Returns undefined if no ancestor defines this local.
 
-<a name="local_remove" href="#local_remove">#</a> <i>local</i>.<b>remove</b>(<i>node</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/local.js#L21 "Source")
+<a name="local_remove" href="#local_remove">#</a> <i>local</i>.<b>remove</b>(<i>node</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/local.js#L21 "Source")
 
 Deletes this local’s value from the specified *node*. Returns true if the *node* defined this local prior to removal, and false otherwise. If ancestors also define this local, those definitions are unaffected, and thus [*local*.get](#local_get) will still return the inherited value.
 
-<a name="local_toString" href="#local_toString">#</a> <i>local</i>.<b>toString</b>() [<>](https://github.com/d3/d3-selection/blob/master/src/local.js#L24 "Source")
+<a name="local_toString" href="#local_toString">#</a> <i>local</i>.<b>toString</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/local.js#L24 "Source")
 
 Returns the automatically-generated identifier for this local. This is the name of the property that is used to store the local’s value on elements, and thus you can also set or get the local’s value using *element*[*local*] or by using [*selection*.property](#selection_property).
 
@@ -791,7 +791,7 @@ Returns the automatically-generated identifier for this local. This is the name 
 
 XML namespaces are fun! Right? Fortunately you can mostly ignore them.
 
-<a name="namespace" href="#namespace">#</a> d3.<b>namespace</b>(<i>name</i>) [<>](https://github.com/d3/d3-selection/blob/master/src/namespace.js "Source")
+<a name="namespace" href="#namespace">#</a> d3.<b>namespace</b>(<i>name</i>) [<>源码](https://github.com/d3/d3-selection/blob/master/src/namespace.js "Source")
 
 Qualifies the specified *name*, which may or may not have a namespace prefix. If the name contains a colon (`:`), the substring before the colon is interpreted as the namespace prefix, which must be registered in [d3.namespaces](#namespaces). Returns an object `space` and `local` attributes describing the full namespace URL and the local name. For example:
 
@@ -801,7 +801,7 @@ d3.namespace("svg:text"); // {space: "http://www.w3.org/2000/svg", local: "text"
 
 If the name does not contain a colon, this function merely returns the input name.
 
-<a name="namespaces" href="#namespaces">#</a> d3.<b>namespaces</b> [<>](https://github.com/d3/d3-selection/blob/master/src/namespaces.js "Source")
+<a name="namespaces" href="#namespaces">#</a> d3.<b>namespaces</b> [<源码>](https://github.com/d3/d3-selection/blob/master/src/namespaces.js "Source")
 
 The map of registered namespace prefixes. The initial value is:
 
