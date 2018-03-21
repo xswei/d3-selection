@@ -260,7 +260,7 @@ var div = selection.selectAll(d3.selectorAll("div"));
 
 ### Modifying Elements
 
-After selecting elements, use the selection’s transformation methods to affect document content. For example, to set the name attribute and color style of an anchor element:
+在选中元素之后，使用选择集的转换方法来修改文档的内容。例如设置 `a` 标签的 `name` 属性和 `color` 样式:
 
 ```js
 d3.select("a")
@@ -268,7 +268,7 @@ d3.select("a")
     .style("color", "red");
 ```
 
-To experiment with selections, visit [d3js.org](https://d3js.org) and open your browser’s developer console! (In Chrome, open the console with ⌥⌘J.) Select elements and then inspect the returned selection to see which elements are selected and how they are grouped. Call selection methods and see how the page content changes.
+可以访问 [d3js.org](https://d3js.org) 并且打开控制台来试验选择集的相关操作(在 `Chrome` 中使用) Select elements and then inspect the returned selection to see which elements are selected and how they are grouped. Call selection methods and see how the page content changes.
 
 <a name="selection_attr" href="#selection_attr">#</a> <i>selection</i>.<b>attr</b>(<i>name</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/attr.js "Source")
 
