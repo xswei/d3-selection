@@ -268,11 +268,11 @@ d3.select("a")
     .style("color", "red");
 ```
 
-可以访问 [d3js.org](https://d3js.org) 并且打开控制台来试验选择集的相关操作(在 `Chrome` 中使用) Select elements and then inspect the returned selection to see which elements are selected and how they are grouped. Call selection methods and see how the page content changes.
+可以访问 [d3js.org](https://d3js.org) 并且打开控制台来试验选择集的相关操作. 比如查看操作选择集或者调用选择集的某些方法会影响哪些页面内容。
 
 <a name="selection_attr" href="#selection_attr">#</a> <i>selection</i>.<b>attr</b>(<i>name</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/attr.js "Source")
 
-If a *value* is specified, sets the attribute with the specified *name* to the specified value on the selected elements and returns this selection. If the *value* is a constant, all elements are given the same attribute value; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s attribute. A null value will remove the specified attribute.
+如果指定了 *value* 则将指定 *name* 的属性值设置为指定的 *value* 并返回当前选择集。如果 *value* 为常量则会将选择集中的每个元素的 *name* 属性设置为该值。如果 *value* 为函数则会为选择集中的每个元素进行调用，并传递当前绑定的数据 *d* , 索引 *i* 以及当前组 *nodes*，函数内部 *this* 指向当前 DOM 元素(*nodes*[*i*]). 函数的返回值将会被设置为对应属性的值。如果返回 `null` 则会移除当前 *name* 属性。
 
 If a *value* is not specified, returns the current value of the specified attribute for the first (non-null) element in the selection. This is generally useful only if you know that the selection contains exactly one element.
 
