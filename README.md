@@ -274,33 +274,33 @@ d3.select("a")
 
 如果指定了 *value* 则将指定 *name* 的属性值设置为指定的 *value* 并返回当前选择集。如果 *value* 为常量则会将选择集中的每个元素的 *name* 属性设置为该值。如果 *value* 为函数则会为选择集中的每个元素进行调用，并传递当前绑定的数据 *d* , 索引 *i* 以及当前组 *nodes*，函数内部 *this* 指向当前 DOM 元素(*nodes*[*i*]). 函数的返回值将会被设置为对应属性的值。如果返回 `null` 则会移除当前 *name* 属性。
 
-If a *value* is not specified, returns the current value of the specified attribute for the first (non-null) element in the selection. This is generally useful only if you know that the selection contains exactly one element.
+如果没有指定 *value* 则返回当前选择集中第一个非空元素的对应的属性值。当已知选择集中只包含一个元素时，使用这个方法是很有用的。
 
-The specified *name* may have a namespace prefix, such as `xlink:href` to specify the `href` attribute in the XLink namespace. See [namespaces](#namespaces) for the map of supported namespaces; additional namespaces can be registered by adding to the map.
+指定的 *name* 可以指定一个命名空间前缀，比如 `xlink:href` 指定 `href` 属性为 `XLink` 命名空间. 参考 [namespaces](#namespaces) 获取更多关于命名空间的信息。可以通过映射来注册其他命名空间。
 
 <a name="selection_classed" href="#selection_classed">#</a> <i>selection</i>.<b>classed</b>(<i>names</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/classed.js "Source")
 
-If a *value* is specified, assigns or unassigns the specified CSS class *names* on the selected elements by setting the `class` attribute or modifying the `classList` property and returns this selection. The specified *names* is a string of space-separated class names. For example, to assign the classes `foo` and `bar` to the selected elements:
+如果指定了 *value* 则通过设置 `class` 属性或者修改 `classList` 来为选择集中的元素指定或取消指定名称为 *names* 的类名。*names* 可以是由空格分割的多个类名的组合，比如为元素指定  `foo` 和 `bar` 两个类名:
 
 ```js
 selection.classed("foo bar", true);
 ```
 
-If the *value* is truthy, then all elements are assigned the specified classes; otherwise, the classes are unassigned. If the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to assign or unassign classes on each element. For example, to randomly associate the class *foo* with on average half the selected elements:
+如果 *value* 为真，则表示选择集中的所有元素都会被添加指定的类名。否则则指定的类会被移除。如果 *value* 为函数，则会为选择集中的每个元素调用，并传递当前元素绑定的数据 *d*, 索引 *i* 以及当前的分组 *nodes*。在函数内部 `this` 指向当前元素(*nodes*[*i*]). 函数的返回值决定是否启用指定的类名。例如随机的为每个元素启用或者移除名为 *foo* 的类名:
 
 ```js
 selection.classed("foo", function() { return Math.random() > 0.5; });
 ```
 
-If a *value* is not specified, returns true if and only if the first (non-null) selected element has the specified *classes*. This is generally useful only if you know the selection contains exactly one element.
+如果没有指定 *value* 则返回当前选择集中第一个非空元素是否启用了指定的 *classes*. 在已知选择集中只包含一个元素时很有用。
 
 <a name="selection_style" href="#selection_style">#</a> <i>selection</i>.<b>style</b>(<i>name</i>[, <i>value</i>[, <i>priority</i>]]) [<>源码](https://github.com/d3/d3-selection/blob/master/src/selection/style.js "Source")
 
-If a *value* is specified, sets the style property with the specified *name* to the specified value on the selected elements and returns this selection. If the *value* is a constant, then all elements are given the same style property value; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s style property. A null value will remove the style property. An optional *priority* may also be specified, either as null or the string `important` (without the exclamation point).
+如果指定了 *value* 则将指定 *name* 的样式设置为指定的 *value* 并返回当前选择集。如果 *value* 为常量则会将选择集中的每个元素的 *name* 样式设置为该值。如果 *value* 为函数则会为选择集中的每个元素进行调用，并传递当前绑定的数据 *d* , 索引 *i* 以及当前组 *nodes*，函数内部 *this* 指向当前 DOM 元素(*nodes*[*i*]). 函数的返回值将会被设置为对应样式的值。如果返回 `null` 则会移除当前 *name* 属性。可选的 *priority*(优先级) 可以为 null 也可以为 `important`(没有感叹号).
 
-If a *value* is not specified, returns the current value of the specified style property for the first (non-null) element in the selection. The current value is defined as the element’s inline value, if present, and otherwise its [computed value](https://developer.mozilla.org/en-US/docs/Web/CSS/computed_value). Accessing the current style value is generally useful only if you know the selection contains exactly one element.
+如果没有指定 *value* 则返回当前选择集中第一个非空元素对应的样式。当前样式为元素的内联样式值(如果存在), 否则会返回其 [computed value(计算值)](https://developer.mozilla.org/en-US/docs/Web/CSS/computed_value)。当已知选择集中只包含一个元素时很有用。
 
-Caution: unlike many SVG attributes, CSS styles typically have associated units. For example, `3px` is a valid stroke-width property value, while `3` is not. Some browsers implicitly assign the `px` (pixel) unit to numeric values, but not all browsers do: IE, for example, throws an “invalid arguments” error!
+警告：与大多数 SVG 属性不同，CSS 样式通常具有关联的单位。比如 `3px` 是有效的 stroke-width 属性值，而 `3` 则不是。一些浏览器会隐式添加 `px` 单位，但是不是全部浏览器都会这样，比如 IE 会抛出 “invalid arguments” (无效参数) 错误。
 
 <a name="selection_property" href="#selection_property">#</a> <i>selection</i>.<b>property</b>(<i>name</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/property.js "Source")
 
