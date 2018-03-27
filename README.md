@@ -304,23 +304,23 @@ selection.classed("foo", function() { return Math.random() > 0.5; });
 
 <a name="selection_property" href="#selection_property">#</a> <i>selection</i>.<b>property</b>(<i>name</i>[, <i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/property.js "Source")
 
-Some HTML elements have special properties that are not addressable using attributes or styles, such as a form field’s text `value` and a checkbox’s `checked` boolean. Use this method to get or set these properties.
+有些 HTML 元素的属性比较特殊，不能直接使用 `attr` 和 `style` 操作，比如文本域的 `value` 属性以及 checkbox 的 `checked` 属性。使用本方法可以操作这些属性。
 
-If a *value* is specified, sets the property with the specified *name* to the specified value on selected elements. If the *value* is a constant, then all elements are given the same property value; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s property. A null value will delete the specified property.
+如果指定了 *value* 则将选中的元素对应 *name* 属性值设置为指定的 *value*。如果 *value* 为常量，则将选择集中所有的元素对应的属性都设置为指定的 *value* 常量。如果 *value* 为函数，则会为选择集中的所有元素依次调用，并传递当前元素绑定的数据 *d*，当前的索引 *i* 以及当前分组 *nodes*，在函数内部 *this* 指向当前 `DOM` 元素(*nodes*[*i*])。函数的返回值将会被设置为当前元素的属性值。使用 `null` 作为值表示移除当前属性。
 
-If a *value* is not specified, returns the value of the specified property for the first (non-null) element in the selection. This is generally useful only if you know the selection contains exactly one element.
+如果没有指定 *value* 则返回当前选择集中第一个非空元素对应的属性值。当已知选择集中只包含一个元素时很有用。
 
 <a name="selection_text" href="#selection_text">#</a> <i>selection</i>.<b>text</b>([<i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/text.js "Source")
 
-If a *value* is specified, sets the [text content](http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-textContent) to the specified value on all selected elements, replacing any existing child elements. If the *value* is a constant, then all elements are given the same text content; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s text content. A null value will clear the content.
+如果指定了 *value* 则将选中的元素的 [text content](http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-textContent) 设置为指定的值，会替代任何现有的子元素。如果 *value* 为常量则将当前选择集中的所有元素都设置为相同的文本内容。如果 *value* 为函数则会为选择集中的所有元素依次调用，并传递当前元素绑定的数据 *d*，当前的索引 *i* 以及当前分组 *nodes*，在函数内部 *this* 指向当前 `DOM` 元素(*nodes*[*i*])。函数的返回值会被设置为当前元素的文本内容。使用 `null` 作为值表示移除当前文本内容。
 
-If a *value* is not specified, returns the text content for the first (non-null) element in the selection. This is generally useful only if you know the selection contains exactly one element.
+如果没有指定 *value* 则返回当前选择集中第一个非空元素的文本内容。当已知选择集中只包含一个元素时很有用。
 
 <a name="selection_html" href="#selection_html">#</a> <i>selection</i>.<b>html</b>([<i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/html.js "Source")
 
-If a *value* is specified, sets the [inner HTML](http://dev.w3.org/html5/spec-LC/apis-in-html-documents.html#innerhtml) to the specified value on all selected elements, replacing any existing child elements. If the *value* is a constant, then all elements are given the same inner HTML; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function’s return value is then used to set each element’s inner HTML. A null value will clear the content.
+如果指定了 *value* 则将选中的元素的 [inner HTML](http://dev.w3.org/html5/spec-LC/apis-in-html-documents.html#innerhtml) 设置为指定的值，会替代任何现有的子元素。如果 *value* 为常量则将当前选择集中的所有元素都设置为相同的 `HTML` 内容。如果 *value* 为函数则会为选择集中的所有元素依次调用，并传递当前元素绑定的数据 *d*，当前的索引 *i* 以及当前分组 *nodes*，在函数内部 *this* 指向当前 `DOM` 元素(*nodes*[*i*])。函数的返回值会被设置为当前元素的 `HTML` 内容。使用 `null` 作为值表示移除当前 `HTML` 内容。
 
-If a *value* is not specified, returns the inner HTML for the first (non-null) element in the selection. This is generally useful only if you know the selection contains exactly one element.
+如果没有指定 *value* 则返回当前选择集中第一个非空元素的 `HTML` 内容。当已知选择集中只包含一个元素时很有用。
 
 Use [*selection*.append](#selection_append) or [*selection*.insert](#selection_insert) instead to create data-driven content; this method is intended for when you want a little bit of HTML, say for rich formatting. Also, *selection*.html is only supported on HTML elements. SVG elements and other non-HTML elements do not support the innerHTML property, and thus are incompatible with *selection*.html. Consider using [XMLSerializer](https://developer.mozilla.org/en-US/docs/XMLSerializer) to convert a DOM subtree to text. See also the [innersvg polyfill](https://code.google.com/p/innersvg/), which provides a shim to support the innerHTML property on SVG elements.
 
