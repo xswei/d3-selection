@@ -322,19 +322,19 @@ selection.classed("foo", function() { return Math.random() > 0.5; });
 
 如果没有指定 *value* 则返回当前选择集中第一个非空元素的 `HTML` 内容。当已知选择集中只包含一个元素时很有用。
 
-Use [*selection*.append](#selection_append) or [*selection*.insert](#selection_insert) instead to create data-driven content; this method is intended for when you want a little bit of HTML, say for rich formatting. Also, *selection*.html is only supported on HTML elements. SVG elements and other non-HTML elements do not support the innerHTML property, and thus are incompatible with *selection*.html. Consider using [XMLSerializer](https://developer.mozilla.org/en-US/docs/XMLSerializer) to convert a DOM subtree to text. See also the [innersvg polyfill](https://code.google.com/p/innersvg/), which provides a shim to support the innerHTML property on SVG elements.
+使用 [*selection*.append](#selection_append) 或 [*selection*.insert](#selection_insert) ；这个方法适用于需要很少的 HTML 内容，常用来丰富格式。*selection*.html 仅仅支持 HTML 元素，SVG 元素以及其他的非 HTML 元素不支持 `innerHTML` 属性因此不能使用 *selection*.html 方法。考虑使用 [XMLSerializer](https://developer.mozilla.org/en-US/docs/XMLSerializer) 将 DOM 树转换为文本。[innersvg polyfill](https://code.google.com/p/innersvg/) 提供了一个能在 SVG 元素上使用 innerHTML 属性的垫片。
 
 <a name="selection_append" href="#selection_append">#</a> <i>selection</i>.<b>append</b>(<i>type</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/append.js "Source")
 
-If the specified *type* is a string, appends a new element of this type (tag name) as the last child of each selected element, or before the next following sibling in the update selection if this is an [enter selection](#selection_enter). The latter behavior for enter selections allows you to insert elements into the DOM in an order consistent with the new bound data; however, note that [*selection*.order](#selection_order) may still be required if updating elements change order (*i.e.*, if the order of new data is inconsistent with old data).
+如果指定的 *type* 为字符串则创建一个以此字符串为标签名的元素，并将其追加到选择集元素列表中。如果选择集为 [enter selection](#selection_enter) 则将其添加到下一个同胞节点之前。后续的 enter 选择集将和新的元素一起被插入到 DOM 中。但是要注意的是当绑定的数据发生顺序变化时仍然需要使用 [*selection*.order](#selection_order) 来同步更新元素的次序。(比如新元素与之前绑定的数据元素之间的次序发生变化)
 
-If the specified *type* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). This function should return an element to be appended. (The function typically creates a new element, but it may instead return an existing element.) For example, to append a DIV element to each paragraph:
+如果 *type* 为函数则会为每个选中的元素执行，并传递当前绑定的元素 *d*，当前索引 *i* 以及当前分组 *nodes*，函数内部 *this* 指向当前 DOM 元素(*nodes*[*i*]). 函数应该返回一个元素用来被添加到 DOM 中(通常在函数内部创建一个新元素节点返回，但是也可能会返回一个已有的元素)。例如为每个 `p` 标签中添加一个 `div` 元素:
 
 ```js
 d3.selectAll("p").append("div");
 ```
 
-This is equivalent to:
+等价于:
 
 ```js
 d3.selectAll("p").append(function() {
@@ -342,7 +342,7 @@ d3.selectAll("p").append(function() {
 });
 ```
 
-Which is equivalent to:
+等价于:
 
 ```js
 d3.selectAll("p").select(function() {
