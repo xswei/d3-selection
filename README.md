@@ -350,9 +350,9 @@ d3.selectAll("p").select(function() {
 });
 ```
 
-In both cases, this method returns a new selection containing the appended elements. Each new element inherits the data of the current elements, if any, in the same manner as [*selection*.select](#selection_select).
+无论是 `type` 是字符串还是返回 DOM 元素的函数，都会返回一个新的包含被添加元素的选择集。每个新的元素都会继承当前元素的数据(如果有的话)，参考 [*selection*.select](#selection_select)。
 
-The specified *name* may have a namespace prefix, such as `svg:text` to specify a `text` attribute in the SVG namespace. See [namespaces](#namespaces) for the map of supported namespaces; additional namespaces can be registered by adding to the map. If no namespace is specified, the namespace will be inherited from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used (for example, `svg` implies `svg:svg`).
+指定的标签 *name* 可能包含一个命名空间前缀，比如使用 `svg:text` 指定 SVG 命名空间下的 `text` 元素。参考 [namespaces](#namespaces) 获取支持的命名空间，也可以注册命名空间。如果没有指定命名空间则会继承父元素的命名空间；如果指定的标签名的命名空间是已知的，则对应的命名空间会被使用(比如 `svg` 暗指 `svg:svg`).
 
 <a name="selection_insert" href="#selection_insert">#</a> <i>selection</i>.<b>insert</b>(<i>type</i>[, <i>before</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/insert.js "Source")
 
