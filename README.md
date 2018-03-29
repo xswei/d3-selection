@@ -356,15 +356,15 @@ d3.selectAll("p").select(function() {
 
 <a name="selection_insert" href="#selection_insert">#</a> <i>selection</i>.<b>insert</b>(<i>type</i>[, <i>before</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/insert.js "Source")
 
-If the specified *type* is a string, inserts a new element of this type (tag name) before the first element matching the specified *before* selector for each selected element. For example, a *before* selector `:first-child` will prepend nodes before the first child. If *before* is not specified, it defaults to null. (To append elements in an order consistent with [bound data](#joining-data), use [*selection*.append](#selection_append).)
+如果 *type* 为字符串则为选择集中每个选中的插入一个指定类型(标签名)的元素，插入的位置为第一个匹配 *before* 选择条件的元素。例如使用 `:first-child` 会将新的元素插入到第一个子元素的位置。如果没有指定 *before* 则默认为 `null`。(按 [bound data(数据绑定)](#joining-data) 次序添加元素考虑使用 [*selection*.append](#selection_append).)
 
-Both *type* and *before* may instead be specified as functions which are evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The *type* function should return an element to be inserted; the *before* function should return the child element before which the element should be inserted. For example, to append a DIV element to each paragraph:
+*type* 和 *before* 都可以使用函数代替，函数会为选择集中的每个元素调用，并传递当前元素绑定的数据 *d*，索引 *i* 以及当前分组 *nodes*，函数内部 *this* 指向当前的 DOM 元素(*nodes*[*i*]). *type* 函数应该返回一个被插入的元素，*before* 函数有应该返回当前元素的子元素用来定位被插入元素的位置。例如为每个 `p` 元素插入 `DIV` 元素：
 
 ```js
 d3.selectAll("p").insert("div");
 ```
 
-This is equivalent to:
+等价于:
 
 ```js
 d3.selectAll("p").insert(function() {
@@ -372,7 +372,7 @@ d3.selectAll("p").insert(function() {
 });
 ```
 
-Which is equivalent to:
+等价于：
 
 ```js
 d3.selectAll("p").select(function() {
@@ -380,13 +380,13 @@ d3.selectAll("p").select(function() {
 });
 ```
 
-In both cases, this method returns a new selection containing the appended elements. Each new element inherits the data of the current elements, if any, in the same manner as [*selection*.select](#selection_select).
+在上述两种例子中，都会返回包含被插入元素的新的选择集。每个新元素继承了当前元素的数据(如果有的话)，继承方式与 [*selection*.select](#selection_select) 相同。
 
-The specified *name* may have a namespace prefix, such as `svg:text` to specify a `text` attribute in the SVG namespace. See [namespaces](#namespaces) for the map of supported namespaces; additional namespaces can be registered by adding to the map. If no namespace is specified, the namespace will be inherited from the parent element; or, if the name is one of the known prefixes, the corresponding namespace will be used (for example, `svg` implies `svg:svg`).
+指定的标签 *name* 可能包含一个命名空间前缀，比如使用 `svg:text` 指定 SVG 命名空间下的 `text` 元素。参考 [namespaces](#namespaces) 获取支持的命名空间，也可以注册命名空间。如果没有指定命名空间则会继承父元素的命名空间；如果指定的标签名的命名空间是已知的，则对应的命名空间会被使用(比如 `svg` 暗指 `svg:svg`).
 
 <a name="selection_remove" href="#selection_remove">#</a> <i>selection</i>.<b>remove</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/remove.js "Source")
 
-Removes the selected elements from the document. Returns this selection (the removed elements) which are now detached from the DOM. There is not currently a dedicated API to add removed elements back to the document; however, you can pass a function to [*selection*.append](#selection_append) or [*selection*.insert](#selection_insert) to re-add elements.
+从当前文档中移除选中的元素。返回的选择集(被移除的元素)已经与文档脱离。目前还没有专门的 API 将删除的元素重新填加到文档中，但是你可以通过 [*selection*.append](#selection_append) 或 [*selection*.insert](#selection_insert) 将其重新加回文档。
 
 <a name="selection_clone" href="#selection_clone">#</a> <i>selection</i>.<b>clone</b>([<i>deep</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/clone.js "Source")
 
