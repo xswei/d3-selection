@@ -390,7 +390,7 @@ d3.selectAll("p").select(function() {
 
 <a name="selection_clone" href="#selection_clone">#</a> <i>selection</i>.<b>clone</b>([<i>deep</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/clone.js "Source")
 
-Inserts clones of the selected elements immediately following the selected elements and returns a selection of the newly added clones. If *deep* is truthy, the descendant nodes of the selected elements will be cloned as well. Otherwise, only the elements themselves will be cloned. Equivalent to:
+在所选元素之后插入所选元素的克隆，并返回包含新添加的克隆元素的选择集。如果 *deep* 为真则选中元素的后代元素也会被克隆(深度克隆)。否则仅仅克隆所选元素自身。等价于：
 
 ```js
 selection.select(function() {
@@ -400,11 +400,11 @@ selection.select(function() {
 
 <a name="selection_sort" href="#selection_sort">#</a> <i>selection</i>.<b>sort</b>(<i>compare</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/sort.js "Source")
 
-Returns a new selection that contains a copy of each group in this selection sorted according to the *compare* function. After sorting, re-inserts elements to match the resulting order (per [*selection*.order](#selection_order)).
+返回一个新选择集，其中包含了当前选择集中所有元素的经过 *compare* 函数排序之后的副本。在排序后，将排序后的元素重新插入原来的文档中替换未排序的元素。([*selection*.order](#selection_order))
 
-The compare function, which defaults to [ascending](https://github.com/d3/d3-array#ascending), is passed two elements’ data *a* and *b* to compare. It should return either a negative, positive, or zero value. If negative, then *a* should be before *b*; if positive, then *a* should be after *b*; otherwise, *a* and *b* are considered equal and the order is arbitrary.
+比较函数默认为 [ascending](https://github.com/d3/d3-array#ascending)，会传递两个元素绑定的数据 *a* 和 *b*。函数返回负值，正值或者 0. 如果是负值则表示 *a* 应该在 *b* 之前，如果是正值则表示 *a* 应该在 *b* 之后，否则不调整 *a* 和 *b* 的位置。
 
-Note that sorting is not guaranteed to be stable; however, it is guaranteed to have the same behavior as your browser’s built-in [sort](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort) method on arrays.
+要注意的是，排序不能保证稳定；但是能保证与浏览器内置的数组 [sort](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort) 方法有相同的行为。
 
 <a name="selection_order" href="#selection_order">#</a> <i>selection</i>.<b>order</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/order.js "Source")
 
