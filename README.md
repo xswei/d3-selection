@@ -432,7 +432,7 @@ selection.each(function() {
 
 <a name="create" href="#create">#</a> d3.<b>create</b>(<i>name</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/create.js "Source")
 
-Given the specified element *name*, returns a single-element selection containing a detached element of the given name in the current document.
+根据指定的元素 *name* 返回一个与当前文档分离的单元素选择集，这个选择集中包含的元素名为指定的 *name*。
 
 <a name="creator" href="#creator">#</a> d3.<b>creator</b>(<i>name</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/creator.js "Source")
 
