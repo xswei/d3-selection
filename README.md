@@ -436,19 +436,19 @@ selection.each(function() {
 
 <a name="creator" href="#creator">#</a> d3.<b>creator</b>(<i>name</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/creator.js "Source")
 
-Given the specified element *name*, returns a function which creates an element of the given name, assuming that `this` is the parent element. This method is used internally by [*selection*.append](#selection_append) and [*selection*.insert](#selection_insert) to create new elements. For example, this:
+根据指定元素的 *name* 返回一个创建该 *name* 元素的函数，假定 `this` 是其父元素。这个方法内部通过 [*selection*.append](#selection_append) 和 [*selection*.insert](#selection_insert) 来创建新元素。例如：
 
 ```js
 selection.append("div");
 ```
 
-Is equivalent to:
+等价于:
 
 ```js
 selection.append(d3.creator("div"));
 ```
 
-See [namespace](#namespace) for details on supported namespace prefixes, such as for SVG elements.
+参考 [namespace](#namespace) 获取支持的命名空间前缀，例如 SVG 元素.
 
 ### Joining Data
 
