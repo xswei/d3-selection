@@ -789,21 +789,21 @@ Returns the automatically-generated identifier for this local. This is the name 
 
 ### Namespaces
 
-XML namespaces are fun! Right? Fortunately you can mostly ignore them.
+XML 的命名空间很有意思，不是吗？幸运的是你大多数情况下都可以忽略它们。
 
 <a name="namespace" href="#namespace">#</a> d3.<b>namespace</b>(<i>name</i>) [<>源码](https://github.com/d3/d3-selection/blob/master/src/namespace.js "Source")
 
-Qualifies the specified *name*, which may or may not have a namespace prefix. If the name contains a colon (`:`), the substring before the colon is interpreted as the namespace prefix, which must be registered in [d3.namespaces](#namespaces). Returns an object `space` and `local` attributes describing the full namespace URL and the local name. For example:
+限定指定的命名，可能不包含命名空间前缀。如果name包含了冒号(:)，则冒号之前的子串被作为命名空间前缀注册到[d3.namespaces](#namespaces). 返回一个包含 `space` 和 `local` 属性的对象用以描述完整的命名空间 `URL` 和 `local` 名称，例如:
 
 ```js
 d3.namespace("svg:text"); // {space: "http://www.w3.org/2000/svg", local: "text"}
 ```
 
-If the name does not contain a colon, this function merely returns the input name.
+如果 `name` 不包含冒号，则直接返回输入的 `name`.
 
 <a name="namespaces" href="#namespaces">#</a> d3.<b>namespaces</b> [<源码>](https://github.com/d3/d3-selection/blob/master/src/namespaces.js "Source")
 
-The map of registered namespace prefixes. The initial value is:
+注册的命名空间前缀。初始值为：
 
 ```js
 {
@@ -815,4 +815,4 @@ The map of registered namespace prefixes. The initial value is:
 }
 ```
 
-Additional prefixes may be assigned as needed to create elements or attributes in other namespaces.
+在其他命名空间中创建元素或者属性时候可以使用附加的命名空间前缀.
