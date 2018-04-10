@@ -689,11 +689,11 @@ Returns the *x* and *y* coordinates of the specified *event* relative to the spe
 
 ### Control Flow
 
-For advanced usage, selections provide methods for custom control flow.
+更高阶的应用就是选择集提供了定制化的控制流。
 
 <a name="selection_each" href="#selection_each">#</a> <i>selection</i>.<b>each</b>(<i>function</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/each.js "Source")
 
-Invokes the specified *function* for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). This method can be used to invoke arbitrary code for each selected element, and is useful for creating a context to access parent and child data simultaneously, such as:
+为每个选中的元素依次调用指定的 *function*，并传递当前元素绑定的数据 *d*，当前索引 *i* 以及当前分组 *nodes*. 函数内部 *this* 指向当前 DOM 元素(*node*[*i*]). 这个方法可以为选中的每个元素调用任意代码，在同一个作用域中同时访问父节点和子节点数据时很有用，比如:
 
 ```js
 parent.each(function(p, j) {
@@ -703,11 +703,11 @@ parent.each(function(p, j) {
 });
 ```
 
-See [Sized Donut Multiples](http://bl.ocks.org/mbostock/4c5fad723c87d2fd8273) for an example.
+参考 [Sized Donut Multiples](http://bl.ocks.org/mbostock/4c5fad723c87d2fd8273).
 
 <a name="selection_call" href="#selection_call">#</a> <i>selection</i>.<b>call</b>(<i>function</i>[, <i>arguments…</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/call.js "Source")
 
-Invokes the specified *function* exactly once, passing in this selection along with any optional *arguments*. Returns this selection. This is equivalent to invoking the function by hand but facilitates method chaining. For example, to set several styles in a reusable function:
+调用一次指定的 *function*，并为将当前选择集作为第一个参数，此外还可以使用可选的其他参数。返回选择集，等价于手动调用函数，但是这种方法支持链式调用。例如有一个设置样式的函数:
 
 ```js
 function name(selection, first, last) {
@@ -717,35 +717,35 @@ function name(selection, first, last) {
 }
 ```
 
-Now say:
+可以写成如下形式:
 
 ```js
 d3.selectAll("div").call(name, "John", "Snow");
 ```
 
-This is roughly equivalent to:
+等价于：
 
 ```js
 name(d3.selectAll("div"), "John", "Snow");
 ```
 
-The only difference is that *selection*.call always returns the *selection* and not the return value of the called *function*, `name`.
+不同的是 *selection*.call 总是返回当前选择集，而不是 *function* 的返回值。
 
 <a name="selection_empty" href="#selection_empty">#</a> <i>selection</i>.<b>empty</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/empty.js "Source")
 
-Returns true if this selection contains no (non-null) elements.
+当且仅当当前选择集中没有任何元素时返回 true.
 
 <a name="selection_nodes" href="#selection_nodes">#</a> <i>selection</i>.<b>nodes</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/nodes.js "Source")
 
-Returns an array of all (non-null) elements in this selection.
+返回选择集中被选中元素的元素数组。
 
 <a name="selection_node" href="#selection_node">#</a> <i>selection</i>.<b>node</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/node.js "Source")
 
-Returns the first (non-null) element in this selection. If the selection is empty, returns null.
+返回选择集中第一个非空元素。如果选择集为空则返回 null。
 
 <a name="selection_size" href="#selection_size">#</a> <i>selection</i>.<b>size</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/size.js "Source")
 
-Returns the total number of elements in this selection.
+返回选择集中包含的元素个数。
 
 ### Local Variables
 
