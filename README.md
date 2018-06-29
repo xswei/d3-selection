@@ -127,8 +127,7 @@ var previous = d3.selectAll("p").select(function() {
 });
 ```
 
-与 [*selection*.selectAll](#selection_selectAll) 不同, *selection*.select 不会影响分组: 它会保存现有的分组结构以及索引并且将关联数据(如果有的话)传递给选中的子节点。分组在
-[data join](#joining-data) 中扮演着很重要的角色。参考 [Nested Selections](http://bost.ocks.org/mike/nest/) 和 [How Selections Work](http://bost.ocks.org/mike/selection/) 获取更多信息.
+与 [*selection*.selectAll](#selection_selectAll) 不同, *selection*.select 不会影响分组: 它会保存现有的分组结构以及索引并且将关联数据(如果有的话)传递给选中的子节点。分组在 [data join](#joining-data) 中扮演着很重要的角色。参考 [Nested Selections](http://bost.ocks.org/mike/nest/) 和 [How Selections Work](http://bost.ocks.org/mike/selection/) 获取更多信息.
 
 <a name="selection_selectAll" href="#selection_selectAll">#</a> <i>selection</i>.<b>selectAll</b>(<i>selector</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/selectAll.js "Source")
 
@@ -179,8 +178,7 @@ var even = d3.selectAll("tr").filter(function(d, i) { return i & 1; });
 var even = d3.selectAll("tr").select(function(d, i) { return i & 1 ? this : null; });
 ```
 
-要注意的是 `:nth-child` 伪类基于 1 的索引而不是基于 0 开始。此外上述过滤函数与 `:nth-child`
-的含义完全不同，一个是基于索引而另一个是基于 DOM 中兄弟元素的数量。
+要注意的是 `:nth-child` 伪类基于 1 的索引而不是基于 0 开始。此外上述过滤函数与 `:nth-child` 的含义完全不同，一个是基于索引而另一个是基于 DOM 中兄弟元素的数量。
 
 返回的经过过滤的选择集保存了选择集的父元素，但与 [*array*.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 类似不会保留索引，因为在过滤中可能会删除某些元素，如果需要可以使用 [*selection*.select](#selection_select) 来保留索引。
 
@@ -452,13 +450,13 @@ selection.append(d3.creator("div"));
 
 ### Joining Data
 
-For an introduction to D3’s data joins, see [Thinking With Joins](http://bost.ocks.org/mike/join/). Also see the [General Update Pattern](http://bl.ocks.org/mbostock/3808218) examples.
+关于 D3’s 数据绑定的介绍可以参考 [Thinking With Joins](http://bost.ocks.org/mike/join/). 也可以参考例子  [General Update Pattern](http://bl.ocks.org/mbostock/3808218).
 
 <a name="selection_data" href="#selection_data">#</a> <i>selection</i>.<b>data</b>([<i>data</i>[, <i>key</i>]]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/data.js "Source")
 
-Joins the specified array of *data* with the selected elements, returning a new selection that represents the *update* selection: the elements successfully bound to data. Also defines the [enter](#selection_enter) and [exit](#selection_exit) selections on the returned selection, which can be used to add or remove elements to correspond to the new data. The specified *data* is an array of arbitrary values (*e.g.*, numbers or objects), or a function that returns an array of values for each group. When data is assigned to an element, it is stored in the property `__data__`, thus making the data “sticky” and available on re-selection.
+将指定数组的数据 *data* 与已经选中的元素进行绑定并返回一个新的选择集，返回的新的选择集使用 *update* 表示: 此时数据已经成功的与元素绑定。并且定义了 [enter](#selection_enter) 和 [exit](#selection_exit) 方法用来返回需要加入元素和移除元素的选择集。*data* 可以是任意数据类型的数组(*e.g.*, 数值或对象), 可以是一个返回数组的方法(比如为每个分组继续绑定数组时). 当数据分配给元素时，会被存储在元素的 `__data__` 属性上, 因此可以在重新选中元素时继续使用与元素对应的数据。
 
-The *data* is specified **for each group** in the selection. If the selection has multiple groups (such as [d3.selectAll](#selectAll) followed by [*selection*.selectAll](#selection_selectAll)), then *data* should typically be specified as a function. This function will be evaluated for each group in order, being passed the group’s parent datum (*d*, which may be undefined), the group index (*i*), and the selection’s parent nodes (*nodes*), with *this* as the group’s parent element. For example, to create an HTML table from a matrix of numbers:
+*data* 会被指定给选择集中的 **each group(每个分组)**。如果选择集中包含多个分组(比如 [d3.selectAll](#selectAll) 后跟随 [*selection*.selectAll](#selection_selectAll))，则 *data* 应该应该被指定为一个函数。这个函数会为每个分组进行调用, 并依次传递当前分组的数据(*d*, 可能没有定义), 分组的索引 (*i*), 以及选择集的父节点 (*nodes*), 函数中 *this* 指向当前分组的父元素。例如根据如下数值矩阵创建一个 `HTML` 表格:
 
 ```js
 var matrix = [
@@ -480,11 +478,11 @@ var td = tr.selectAll("td")
     .text(function(d) { return d; });
 ```
 
-In this example the *data* function is the identity function: for each table row, it returns the corresponding row from the data matrix.
+在这个例子中 *data* 函数时一个恒等函数: 对于每一行，返回矩阵中对应的行数据.
 
-If a *key* function is not specified, then the first datum in *data* is assigned to the first selected element, the second datum to the second selected element, and so on. A *key* function may be specified to control which datum is assigned to which element, replacing the default join-by-index, by computing a string identifier for each datum and element. This key function is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]); the returned string is the element’s key. The key function is then also evaluated for each new datum in *data*, being passed the current datum (*d*), the current index (*i*), and the group’s new *data*, with *this* as the group’s parent DOM element; the returned string is the datum’s key. The datum for a given key is assigned to the element with the matching key. If multiple elements have the same key, the duplicate elements are put into the exit selection; if multiple data have the same key, the duplicate data are put into the enter selection.
+如果没有指定 *key* 函数，则第一个数据 *data* 被分配给第一个被选中的元素，第二个数据 *data* 被分配给第二个选中的元素, 以此类推. *key* 函数通过计算每个数据与元素的字符串标识来控制哪一个数据与哪一个元素绑定, 替代默认的按索引绑定的方式。*key* 函数为每一个选中的元素进行调用并传递当前元素绑定的数据 *d*, 当前的索引 *i*, 以及当前的分组 *nodes*, 函数内部 *this* 指向当前的 `DOM` 节点(*nodes*[*i*]); 返回的字符串为元素的 *key* 标识. *key* 函数也会为每个新的数据元素 *data* 进行调用, 并传递当前的数据 *d*, 当前索引 *i*, 以及分组的新数据 *data*, 函数内部 *this* 指向当前分组的父级 `DOM` 元素; 返回的字符串为当前数据的 *key* 标识。每个数据会被分配给与之相匹配 *key* 标识的元素。如果多个元素有相同的 *key* 标识则重复的元素会被放入 `exit` 选择集中; 如果多个数据有相同的 *key*, 则多余的数据会被放入到 `enter` 选择集中.
 
-For example, given this document:
+例如给定一下文档:
 
 ```html
 <div id="Ford"></div>
@@ -495,7 +493,7 @@ For example, given this document:
 <div id="Shephard"></div>
 ```
 
-You could join data by key as follows:
+你可以使用如下方法来绑定数据：
 
 
 ```js
@@ -513,11 +511,11 @@ d3.selectAll("div")
     .text(function(d) { return d.number; });
 ```
 
-This example key function uses the datum *d* if present, and otherwise falls back to the element’s id property. Since these elements were not previously bound to data, the datum *d* is null when the key function is evaluated on selected elements, and non-null when the key function is evaluated on the new data.
+这个例子中的 *key* 函数使用了数据 *d*, 如果不存在的话返回元素的 `id` 属性。因为这些元素没有被绑定数据，因此当每个元素被调用 *key* 函数时 *d* 为 `null` 而为新数据调用时非空.
 
-The *update* and *enter* selections are returned in data order, while the *exit* selection preserves the selection order prior to the join. If a key function is specified, the order of elements in the selection may not match their order in the document; use [*selection*.order](#order) or [*selection*.sort](#sort) as needed. For more on how the key function affects the join, see [A Bar Chart, Part 2](http://bost.ocks.org/mike/bar/2/) and [Object Constancy](http://bost.ocks.org/mike/constancy/).
+*update* 和 *enter* 选择集根据数据的顺序返回, *exit* 选择集保留数据绑定之前的顺序。如果 *key* 函数被指定, 则选择集中的元素顺序与文档中的顺序可能不匹配, 此时需要使用 [*selection*.order](#order) 或 [*selection*.sort](#sort)。更多关于 *key* 函数如何影响数据绑定的资料，可以参考 [A Bar Chart, Part 2](http://bost.ocks.org/mike/bar/2/) 和 [Object Constancy](http://bost.ocks.org/mike/constancy/).
 
-Although the data-join can be used simply to create (to *enter*) a set of elements corresponding to data, more generally the data-join is designed to let you create, destroy or update elements as needed so that the resulting DOM corresponds to the new data. The data-join lets you do this efficiently by executing only the minimum necessary operations on each state of element (entering, updating, or exiting), and allows you to declare concise animated transitions between states as well. Here is a simple example of the [General Update Pattern](http://bl.ocks.org/mbostock/3808218):
+尽管数据绑定可以用来简单的创建 (*enter*) 一组与数据对应的元素，更一般的说, 数据绑定的设计是为了让你根据需要创建, 销毁或者更新元素，以使得 `DOM` 元素与新数据集对应. 数据绑定帮助你更高效的完成这些操作, 你只需要在每个元素状态(新加, 更新以及移除) 上执行最少且必要的操作即可, 此外还允许在这些元素状态上执行一些过渡效果。这是一个 [General Update Pattern(通用更新模式)](http://bl.ocks.org/mbostock/3808218) 的简单示例:
 
 ```js
 var circle = svg.selectAll("circle") // 1
@@ -532,23 +530,23 @@ circle = circle.enter().append("circle") // 5, 9
     .style("stroke", "black"); // 8
 ```
 
-Breaking this down into discrete steps:
+分解为以下几步:
 
-1. Any existing circles (that are descendants of the `svg` selection) are [selected](#selection_selectAll).
-2. These circles are [joined to new `data`](#selection_data), returning the matching circles: the *update* selection.
-3. These updating circles are given a blue fill.
-4. Any existing circles that do *not* match new data—the *exit* selection—are removed.
-5. New circles are [appended](#selection_append) for any new data that do *not* match any existing circle: the *enter* selection.
-6. These entering circles are given a green fill.
-7. A new selection representing the [union](#selection_merge) of entering and updating circles is created.
-8. These entering and updating circles are given a black stroke.
-9. These circles are stored in the variable `circle`.
+1. 任何现存的圆( `SVG` 的后代元素) 被 [selected](#selection_selectAll).
+2. 这些圆被 [绑定新 `data`](#selection_data), 返回与之前对应的圆: *update* 选择集.
+3. 这些更新的圆使用蓝色填充.
+4. 多余的圆(也就是已经存在的圆没有匹配到新数据中的任何一个元素)被移除: *exit* 选择集.
+5. 新的圆(没有与新数据对应的圆元素)被 [appended](#selection_append): *enter* selection.
+6. 新添加的圆使用绿色填充.
+7. 新的圆与已经存在的圆进行 [union](#selection_merge).
+8. 所有的圆(已有的和被新加的)被设置为黑色描边.
+9. 使用 `circle` 变量存储合并之后的选择集.
 
-As described in the preceding paragraphs, the “matching” logic is determined by the key function passed to *selection*.data; since no key function is used in the above code sample, the elements and data are joined by index.
+正如上文所述, “匹配”逻辑使由 *key* 函数决定并传递给 *selection*.data 的; 如果没有指定 *key* 函数则元素和数据会按照索引绑定。
 
-If *data* is not specified, this method returns the array of data for the selected elements.
+如果没有指定 *data* 则这个方法会返回当前被选中元素绑定的数据数组.
 
-This method cannot be used to clear bound data; use [*selection*.datum](#selection_datum) instead.
+这个方法不能用于清除数据绑定，可以使用 [*selection*.datum](#selection_datum) 替代。
 
 <a name="selection_enter" href="#selection_enter">#</a> <i>selection</i>.<b>enter</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/enter.js "Source")
 
@@ -781,8 +779,7 @@ selection.property(foo, function(d) { return d.value; });
 
 <a name="local_remove" href="#local_remove">#</a> <i>local</i>.<b>remove</b>(<i>node</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/local.js#L21 "Source")
 
-移除指定 *node* 的局部变量，当且仅当指定的节点定义了局部变量时返回 `true`，否则返回 `false`。如果祖先节点也定义了这个局部变量，则不会受影响，因此使用 [*local*.get](#local_get)
-仍然会返回继承自祖先节点的值。
+移除指定 *node* 的局部变量，当且仅当指定的节点定义了局部变量时返回 `true`，否则返回 `false`。如果祖先节点也定义了这个局部变量，则不会受影响，因此使用 [*local*.get](#local_get) 仍然会返回继承自祖先节点的值。
 
 <a name="local_toString" href="#local_toString">#</a> <i>local</i>.<b>toString</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/local.js#L24 "Source")
 
