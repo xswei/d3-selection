@@ -550,9 +550,9 @@ circle = circle.enter().append("circle") // 5, 9
 
 <a name="selection_enter" href="#selection_enter">#</a> <i>selection</i>.<b>enter</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/enter.js "Source")
 
-Returns the enter selection: placeholder nodes for each datum that had no corresponding DOM element in the selection. (The enter selection is empty for selections not returned by [*selection*.data](#selection_data).)
+返回 `enter` 选择集: 没有对应 `DOM` 节点的数据的占位节点. (对于不是通过 [*selection*.data](#selection_data) 返回的选择集 `enter` 选择集为空)
 
-The enter selection is typically used to create “missing” elements corresponding to new data. For example, to create DIV elements from an array of numbers:
+`enter` 选择集通常在数据比节点多时用来创建缺失的节点。比如根据以下数据创建 `DIV` 元素:
 
 ```js
 var div = d3.select("body")
@@ -562,7 +562,7 @@ var div = d3.select("body")
     .text(function(d) { return d; });
 ```
 
-If the body is initially empty, the above code will create six new DIV elements, append them to the body in-order, and assign their text content as the associated (string-coerced) number:
+如果 `body` 初始为空，则上述代码会创建 6 个新的 `DIV` 元素并依次添加到 `body` 中，并且将其文本内容设置为对应的数值:
 
 ```html
 <div>4</div>
@@ -573,31 +573,31 @@ If the body is initially empty, the above code will create six new DIV elements,
 <div>42</div>
 ```
 
-Conceptually, the enter selection’s placeholders are pointers to the parent element (in this example, the document body). The enter selection is typically only used transiently to append elements, and is often [merged](#selection_merge) with the update selection after appending, such that modifications can be applied to both entering and updating elements.
+从概念上来讲，`enter` 选择集的占位符是一个指向父元素的指针(上述例子中为 `body`)。`enter` 选择集通常仅仅用来添加元素，并且在添加完元素之后与 `update` 选择集进行 [merged](#selection_merge), 这样的话数据的修改可以同时应用于 `enter` 的元素和 `update` 的元素。
 
 <a name="selection_exit" href="#selection_exit">#</a> <i>selection</i>.<b>exit</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/exit.js "Source")
 
-Returns the exit selection: existing DOM elements in the selection for which no new datum was found. (The exit selection is empty for selections not returned by [*selection*.data](#selection_data).)
+返回 `exit` 选择集: 没有对应数据的已经存在的 `DOM` 节点。(对于不是通过 [*selection*.data](#selection_data) 返回的选择集 `exit` 选择集为空)
 
-The exit selection is typically used to remove “superfluous” elements corresponding to old data. For example, to update the DIV elements created previously with a new array of numbers:
+`exit` 选择集通常用来移除多余的元素。例如使用新的数据更新 `DIV` 元素:
 
 ```js
 div = div.data([1, 2, 4, 8, 16, 32], function(d) { return d; });
 ```
 
-Since a key function was specified (as the identity function), and the new data contains the numbers [4, 8, 16] which match existing elements in the document, the update selection contains three DIV elements. Leaving those elements as-is, we can append new elements for [1, 2, 32] using the enter selection:
+因为指定了 *key* 函数(恒等函数), 并且新的数据包含数值 [4, 8, 16] 能匹配到已经存在的元素, `update` 选择集包含三个 `DIV` 元素。保留已经存在的并且能匹配数据的元素，然后通过 `enter` 选择集为 [1, 2, 32] 添加新的元素:
 
 ```js
 div.enter().append("div").text(function(d) { return d; });
 ```
 
-Likewise, to remove the exiting elements [15, 23, 42]:
+同样的, 移除与 [15, 23, 42] 绑定的元素:
 
 ```js
 div.exit().remove();
 ```
 
-Now the document body looks like this:
+此时文档结构如下:
 
 ```html
 <div>1</div>
@@ -608,7 +608,7 @@ Now the document body looks like this:
 <div>32</div>
 ```
 
-The order of the DOM elements matches the order of the data because the old data’s order and the new data’s order were consistent. If the new data’s order is different, use [*selection*.order](#selection_order) to reorder the elements in the DOM. See the [General Update Pattern](http://bl.ocks.org/mbostock/3808218) example thread for more on data joins.
+`DOM` 元素的顺序与数据的顺序一致，因为旧数据的顺序和新数据的顺序是一致的( `enter` 选择集长度与数据长度一致，只不过中间会有 `empty` 表示不需要插入元素, 因此能保证次序)。如果新元素的次序发生了改变则可以使用 [*selection*.order](#selection_order) 来重新排列 `DOM` 元素的次序。参考 [General Update Pattern](http://bl.ocks.org/mbostock/3808218) 来查看数据绑定的例子。
 
 <a name="selection_datum" href="#selection_datum">#</a> <i>selection</i>.<b>datum</b>([<i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/datum.js "Source")
 
