@@ -406,11 +406,11 @@ selection.select(function() {
 
 <a name="selection_order" href="#selection_order">#</a> <i>selection</i>.<b>order</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/order.js "Source")
 
-Re-inserts elements into the document such that the document order of each group matches the selection order. This is equivalent to calling [*selection*.sort](#selection_sort) if the data is already sorted, but much faster.
+重新将元素插入到文档中以使得文档中每个分组的次序与选择集的次序匹配。如果数据已经有序的话，这个方法与 [*selection*.sort](#selection_sort) 等效，但是要更快。
 
 <a name="selection_raise" href="#selection_raise">#</a> <i>selection</i>.<b>raise</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/raise.js "Source")
 
-Re-inserts each selected element, in order, as the last child of its parent. Equivalent to:
+按序重新插入每个选中的元素，每次插入的元素都作为其父元素的最后一个子元素。等价于:
 
 ```js
 selection.each(function() {
@@ -420,7 +420,7 @@ selection.each(function() {
 
 <a name="selection_lower" href="#selection_lower">#</a> <i>selection</i>.<b>lower</b>() [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/lower.js "Source")
 
-Re-inserts each selected element, in order, as the first child of its parent. Equivalent to:
+按序重新插入每个选中的元素，每次插入的元素都作为其父元素的第一个子元素。等价于:
 
 ```js
 selection.each(function() {
@@ -612,13 +612,13 @@ div.exit().remove();
 
 <a name="selection_datum" href="#selection_datum">#</a> <i>selection</i>.<b>datum</b>([<i>value</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/datum.js "Source")
 
-Gets or sets the bound data for each selected element. Unlike [*selection*.data](#selection_data), this method does not compute a join and does not affect indexes or the enter and exit selections.
+获取或设置每个选中元素上绑定的数据。与 [*selection*.data](#selection_data) 不同, 这个方法不会进行数据链接计算并且不影响索引, 不影响 `enter` 和 `exit` 选择集.
 
-If a *value* is specified, sets the element’s bound data to the specified value on all selected elements. If the *value* is a constant, all elements are given the same datum; otherwise, if the *value* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). The function is then used to set each element’s new data. A null value will delete the bound data.
+如果指定了 *value*, 则将当前所有选中的元素绑定的数据设置为指定的值。如果 *value* 为常量则所有的元素的绑定的数据会被设置为相同的值，如果 *value* 为函数，则会为每个选中的元素进行调用，并传递当前元素绑定的数据 *d*, 当前的索引 *i*, 当前分组 *nodes*, 函数内部 *this* 指向当前 `DOM` 元素(*nodes*[*i*]). 这个函数用来设置设置每个元素绑定的新数据. 如果为 `null` 则表示移除当前元素绑定的数据。
 
-If a *value* is not specified, returns the bound datum for the first (non-null) element in the selection. This is generally useful only if you know the selection contains exactly one element.
+如果没有指定 *value* 则返回当前所有选中的元素中第一个非空元素所绑定的数据。当已知选择集中只包含一个元素时候通常很有用。
 
-This method is useful for accessing HTML5 [custom data attributes](http://www.w3.org/TR/html5/dom.html#custom-data-attribute). For example, given the following elements:
+这个方法在访问 `HTML5` 的 [custom data attributes](http://www.w3.org/TR/html5/dom.html#custom-data-attribute) 时很有用. 比如, 给定如下元素:
 
 ```html
 <ul id="list">
@@ -627,7 +627,7 @@ This method is useful for accessing HTML5 [custom data attributes](http://www.w3
 </ul>
 ```
 
-You can expose the custom data attributes by setting each element’s data as the built-in [dataset](http://www.w3.org/TR/html5/dom.html#dom-dataset) property:
+你可以通过将每个元素绑定的数据设置为其 [dataset](http://www.w3.org/TR/html5/dom.html#dom-dataset) 属性:
 
 ```js
 selection.datum(function() { return this.dataset; })
@@ -635,55 +635,55 @@ selection.datum(function() { return this.dataset; })
 
 ### Handling Events
 
-For interaction, selections allow listening for and dispatching of events.
+为了交互，选择集允许监听和分派事件。
 
 <a name="selection_on" href="#selection_on">#</a> <i>selection</i>.<b>on</b>(<i>typenames</i>[, <i>listener</i>[, <i>capture</i>]]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/on.js "Source")
 
-Adds or removes a *listener* to each selected element for the specified event *typenames*. The *typenames* is a string event type, such as `click`, `mouseover`, or `submit`; any [DOM event type](https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events) supported by your browser may be used. The type may be optionally followed by a period (`.`) and a name; the optional name allows multiple callbacks to be registered to receive events of the same type, such as `click.foo` and `click.bar`. To specify multiple typenames, separate typenames with spaces, such as `input change` or `click.foo click.bar`.
+为每个选中的元素添加或者移除一个指定*typenames* 事件的 *listener*. *typenames* 是一个字符串表示的事件类型, 比如 `click`, `mouseover`, 或者 `submit`; 浏览器支持的 [DOM event type](https://developer.mozilla.org/en-US/docs/Web/Events#Standard_events) 都可以使用。类型后面可以跟一个由( `.` )分割的可选的 `name`；可选的名称允许在同一个事件类型上注册多个回调, 比如 `click.foo` and `click.bar`. 同时指定多个 `typenames` 可以使用空格隔开，比如 `input change` 或 `click.foo click.bar`.
 
-When a specified event is dispatched on a selected element, the specified *listener* will be evaluated for the element, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). Listeners always see the latest datum for their element, but the index is a property of the selection and is fixed when the listener is assigned; to update the index, re-assign the listener. To access the current event within a listener, use [d3.event](#event).
+当指定的事件被分配给已选中的元素时，该元素对应的 *listener* 将会被调用, 并传递当前绑定的数据 *d*, 当前的索引 *i*, 当前的分组 (*nodes*), 回调中 *this* 指向当前的 `DOM` 元素(*nodes*[*i*])。事件监听器只能获取到元素上最新绑定的数据，而索引是选择集的一个属性并且在分配监听器的时候已经被固定，如果需要更新索引则需要重新分配事件监听器。在监听器内使用 [d3.event](#event) 访问当前的事件。
 
-If an event listener was previously registered for the same *typename* on a selected element, the old listener is removed before the new listener is added. To remove a listener, pass null as the *listener*. To remove all listeners for a given name, pass null as the *listener* and `.foo` as the *typename*, where `foo` is the name; to remove all listeners with no name, specify `.` as the *typename*.
+如果在一个已选中的元素上已经注册了相同 *typename* 的监听器, 则旧的会被移除而新的监听器会被添加。如果要移除一个事件监听器，可以将 *listener* 设置为 `null`。移除所有的指定 *name* 的监听器可以将 *typename* 设置为 `.foo`, 同时将 *listener* 设置为 `null`, 其中 `foo` 为名称。移除所有没有名称的监听器，则将 *typename* 设置为 (`.`)。
 
-An optional *capture* flag may be specified which corresponds to the W3C [useCapture flag](http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-registration): “After initiating capture, all events of the specified type will be dispatched to the registered EventListener before being dispatched to any EventTargets beneath them in the tree. Events which are bubbling upward through the tree will not trigger an EventListener designated to use capture.”
+可选的 *capture* 标志位与 `W3C` 的 [useCapture flag](http://www.w3.org/TR/DOM-Level-2-Events/events.html#Events-registration) 对应: “启动捕获后, 所有的指定类型的事件将会被分发给指定的 `EventListener` 然后被分派到树中任何 `EventTargets`. 向上冒泡的事件不会触发指定使用捕获的 `EventListener`.”
 
-If a *listener* is not specified, returns the currently-assigned listener for the specified event *typename* on the first (non-null) selected element, if any. If multiple typenames are specified, the first matching listener is returned.
+如果没有指定 *listener*，则返回当前第一个非空元素对应的 *typename* 事件监听器. 如果指定了多个 `typename` 则返回第一个匹配的事件监听器.
 
 <a name="selection_dispatch" href="#selection_dispatch">#</a> <i>selection</i>.<b>dispatch</b>(<i>type</i>[, <i>parameters</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/dispatch.js "Source")
 
-Dispatches a [custom event](http://www.w3.org/TR/dom/#interface-customevent) of the specified *type* to each selected element, in order. An optional *parameters* map may be specified to set additional properties of the event. It may contain the following fields:
+为每个选中的元素根据指定的 *type* 按序派发一个 [custom event](http://www.w3.org/TR/dom/#interface-customevent). 可以指定一个可选的 *parameters* 映射来设置事件的附加属性。包含以下几个字段:
 
-* [`bubbles`](https://www.w3.org/TR/dom/#dom-event-bubbles) - if true, the event is dispatched to ancestors in reverse tree order.
-* [`cancelable`](https://www.w3.org/TR/dom/#dom-event-cancelable) - if true, *event*.preventDefault is allowed.
-* [`detail`](https://www.w3.org/TR/dom/#dom-customevent-detail) - any custom data associated with the event.
+* [`bubbles`](https://www.w3.org/TR/dom/#dom-event-bubbles) - 如果为 `true`, 这个事件会冒泡给祖先节点.
+* [`cancelable`](https://www.w3.org/TR/dom/#dom-event-cancelable) - 如果为 `true`, 则 *event*.preventDefault 会被允许.
+* [`detail`](https://www.w3.org/TR/dom/#dom-customevent-detail) - 任何关联事件的其他自定义数据.
 
-If *parameters* is a function, it is evaluated for each selected element, in order, being passed the current datum (*d*), the current index (*i*), and the current group (*nodes*), with *this* as the current DOM element (*nodes*[*i*]). It must return the parameters map for the current element.
+如果 *parameters* 是一个函数，则会为每个选中的元素进行依次调用, 并传递当前的数据 *d*, 当前的索引 *i* 以及当前分组 *nodes*，函数内部 *this* 指向当前 `DOM` 元素。必须为当前元素返回一个 *parameters* 映射.
 
 <a name="event" href="#event">#</a> d3.<b>event</b>
 
-The current [event](https://developer.mozilla.org/en-US/docs/DOM/event), if any. This is set during the invocation of an event listener, and is reset after the listener terminates. Use this to access standard event fields such as [*event*.timeStamp](https://www.w3.org/TR/dom/#dom-event-timestamp) and methods such as [*event*.preventDefault](https://www.w3.org/TR/dom/#dom-event-preventdefault). While you can use the native [*event*.pageX](https://developer.mozilla.org/en/DOM/event.pageX) and [*event*.pageY](https://developer.mozilla.org/en/DOM/event.pageY), it is often more convenient to transform the event position to the local coordinate system of the container that received the event using [d3.mouse](#mouse), [d3.touch](#touch) or [d3.touches](#touches).
+当前 [event](https://developer.mozilla.org/en-US/docs/DOM/event) (如果存在的话). 这个值在调用事件监听器时设置的，并且在监听器执行结束之后重置。使用这个属性可以访问标准的事件字段，比如 [*event*.timeStamp](https://www.w3.org/TR/dom/#dom-event-timestamp) 以及方法比如 [*event*.preventDefault](https://www.w3.org/TR/dom/#dom-event-preventdefault). 你可以使用原生的 [*event*.pageX](https://developer.mozilla.org/en/DOM/event.pageX) 和 [*event*.pageY](https://developer.mozilla.org/en/DOM/event.pageY) 以方便的将事件位置转换为使用 [d3.mouse](#mouse), [d3.touch](#touch) 或 [d3.touches](#touches) 接收事件的容器的本地坐标。
 
-If you use Babel, Webpack, or another ES6-to-ES5 bundler, be aware that the value of d3.event changes during an event! An import of d3.event must be a [live binding](http://www.2ality.com/2015/07/es6-module-exports.html), so you may need to configure the bundler to import from D3’s ES6 modules rather than from the generated UMD bundle; not all bundlers observe [jsnext:main](https://github.com/rollup/rollup/wiki/jsnext:main). Also beware of conflicts with the [*window*.event](https://developer.mozilla.org/en-US/docs/Web/API/Window/event) global.
+如果你使用 `Babel`, `Webpack` 或者其他的 `ES6` 转 `ES5` 的打包工具，要注意 d3.event 的值在事件中的变化！导入的 d3.event 必须是 [live binding(动态绑定)](http://www.2ality.com/2015/07/es6-module-exports.html) 的，因此你需要将打包配置设置为引入 `D3` 的 `ES6` 模块而不是生成的 `UMD`；并不是所有的打包工具都识别 [jsnext:main](https://github.com/rollup/rollup/wiki/jsnext:main)。也要注意与 [*window*.event](https://developer.mozilla.org/en-US/docs/Web/API/Window/event) 的冲突。
 
 <a name="customEvent" href="#customEvent">#</a> d3.<b>customEvent</b>(<i>event</i>, <i>listener</i>[, <i>that</i>[, <i>arguments</i>]]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/on.js#L98 "Source")
 
-Invokes the specified *listener*, using the specified *that* `this` context and passing the specified *arguments*, if any. During the invocation, [d3.event](#event) is set to the specified *event*; after the listener returns (or throws an error), d3.event is restored to its previous value. In addition, sets *event*.sourceEvent to the prior value of d3.event, allowing custom events to retain a reference to the originating native event. Returns the value returned by the *listener*.
+调用指定的 *listener*, 使用指定的 *that* 作为 `this` 上下文并传递指定的 *arguments*(如果有的话). 在调用期间，[d3.event](#event) 被设置为指定的 *event*; 当事件监听器返回(或抛出错), d3.event 被重置为之前的值。此外，设置 *event*.sourceEvent 为 d3.event 的预设值，允许自定义事件对原生事件的引用。返回由 *listener* 返回的值。
 
 <a name="mouse" href="#mouse">#</a> d3.<b>mouse</b>(<i>container</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/mouse.js "Source")
 
-Returns the *x* and *y* coordinates of the [current event](#event) relative to the specified *container*. The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as a two-element array of numbers [*x*, *y*].
+返回 [current event](#event) 相对于指定 *container* 的 *x* 和 *y* 坐标。`container` 可以是一个 `HTML` 或 `SVG` 容器元素，比如 [G element](http://www.w3.org/TR/SVG/struct.html#Groups) 或者 [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement)。坐标以二元数组的形式返回: [*x*, *y*].
 
 <a name="touch" href="#touch">#</a> d3.<b>touch</b>(<i>container</i>[, <i>touches</i>], <i>identifier</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/touch.js "Source")
 
-Returns the *x* and *y* coordinates of the touch with the specified *identifier* associated with the [current event](#event) relative to the specified *container*. The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as a two-element array of numbers [*x*, *y*]. If there is no touch with the specified identifier in *touches*, returns null; this can be useful for ignoring touchmove events where the only some touches have moved. If *touches* is not specified, it defaults to the current event’s [changedTouches](http://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/javascript/instp/TouchEvent/changedTouches) property.
+返回与 [current event](#event) 相关的指定标识符的触摸事件相对于指定 *container* 的 *x* 和 *y* 坐标。`container` 可以是一个 `HTML` 或 `SVG` 容器元素，比如 [G element](http://www.w3.org/TR/SVG/struct.html#Groups) 或者 [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement)。坐标以二元数组的形式返回: [*x*, *y*]. 如果当前 *touches* 中没有与指定标识符相关联的事件则返回 `null`。当仅仅有部分触摸移动的时候忽略 `touchmove` 会很有用。如果没有指定 *touches* 则默认为当前事件的 [changedTouches](http://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/javascript/instp/TouchEvent/changedTouches) 属性
 
 <a name="touches" href="#touches">#</a> d3.<b>touches</b>(<i>container</i>[, <i>touches</i>]) [<源码>](https://github.com/d3/d3-selection/blob/master/src/touches.js "Source")
 
-Returns the *x* and *y* coordinates of the touches associated with the [current event](#event) relative to the specified *container*. The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as an array of two-element arrays of numbers \[\[*x1*, *y1*], [*x2*, *y2*], …\]. If *touches* is not specified, it defaults to the current event’s [touches](http://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/javascript/instp/TouchEvent/touches) property.
+返回 [current event(当前触摸事件)](#event) 相对于指定 *container* 的 *x* 和 *y* 坐标。`container` 可以是一个 `HTML` 或 `SVG` 容器元素，比如 [G element](http://www.w3.org/TR/SVG/struct.html#Groups) 或者 [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement)。返回的坐标以二维数组的形式返回: \[\[*x1*, *y1*], [*x2*, *y2*], …\]. 如果 *touches* 没有被指定则默认为当前事件的 [touches](http://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/javascript/instp/TouchEvent/touches) 属性。
 
 <a name="clientPoint" href="#clientPoint">#</a> d3.<b>clientPoint</b>(<i>container</i>, <i>event</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/point.js "Source")
 
-Returns the *x* and *y* coordinates of the specified *event* relative to the specified *container*. (The *event* may also be a [touch](https://www.w3.org/TR/touch-events/#touch-interface).) The container may be an HTML or SVG container element, such as a [G element](http://www.w3.org/TR/SVG/struct.html#Groups) or an [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement). The coordinates are returned as a two-element array of numbers [*x*, *y*].
+返回指定 *event* 相对于指定 *container* 的 *x* 和 *y* 坐标。`container` 可以是一个 `HTML` 或 `SVG` 容器元素，比如 [G element](http://www.w3.org/TR/SVG/struct.html#Groups) 或者 [SVG element](http://www.w3.org/TR/SVG/struct.html#SVGElement)。坐标以二元数组的形式返回: [*x*, *y*].
 
 ### Control Flow
 
