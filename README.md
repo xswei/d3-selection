@@ -691,7 +691,7 @@ selection.datum(function() { return this.dataset; })
 
 <a name="selection_each" href="#selection_each">#</a> <i>selection</i>.<b>each</b>(<i>function</i>) [<源码>](https://github.com/d3/d3-selection/blob/master/src/selection/each.js "Source")
 
-为每个选中的元素依次调用指定的 *function*，并传递当前元素绑定的数据 *d*，当前索引 *i* 以及当前分组 *nodes*. 函数内部 *this* 指向当前 DOM 元素(*node*[*i*]). 这个方法可以为选中的每个元素调用任意代码，在同一个作用域中同时访问父节点和子节点数据时很有用，比如:
+为每个选中的元素依次调用指定的 *function*，并传递当前元素绑定的数据 *d*，当前索引 *i* 以及当前分组 *nodes*. 函数内部 *this* 指向当前 DOM 元素(*nodes*[*i*]). 这个方法可以为选中的每个元素调用任意代码，在同一个作用域中同时访问父节点和子节点数据时很有用，比如:
 
 ```js
 parent.each(function(p, j) {
